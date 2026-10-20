@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/app_text_styles.dart';
 import '../../widgets/custom_app_bar.dart';
+import '../../widgets/notification_tile.dart';
 
 class NotificationsScreen extends StatefulWidget {
   final VoidCallback? onBackTap;
@@ -47,8 +48,8 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                 Container(
                   width: 140,
                   height: 140,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFEFF1F4),
+                  decoration: const BoxDecoration(
+                    color: Color(0xFFEFF1F4),
                     shape: BoxShape.circle,
                   ),
                   child: const Center(
@@ -133,21 +134,22 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
           ),
           const SizedBox(height: 14),
 
-          _buildNotificationItem(
+          // Notifications using NotificationTile widget
+          const NotificationTile(
             icon: Icons.verified_outlined,
             title: 'Car Booking Successful',
             description: 'Your car is ready! Check your email for the booking and pickup instructions. Safe travels!',
             time: '10:00 am',
             isUnread: true,
           ),
-          _buildNotificationItem(
+          const NotificationTile(
             icon: Icons.receipt_long_outlined,
             title: 'Payment Notification',
             description: 'Your payment was processed successfully! Enjoy your ride.',
             time: '10:00 am',
             isUnread: true,
           ),
-          _buildNotificationItem(
+          const NotificationTile(
             icon: Icons.access_time_rounded,
             title: 'Car Pickup/Drop-off time',
             description: 'Pickup time confirmed! See you at 10:00 AM for your car rental. Drop-off Time Confirmed!',
@@ -163,21 +165,21 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
           ),
           const SizedBox(height: 14),
 
-          _buildNotificationItem(
+          const NotificationTile(
             icon: Icons.warning_amber_rounded,
             title: 'Late Return Warning',
             description: 'Late Return Alert! Please return the car as soon as possible to avoid extra charges.',
             time: 'Yesterday',
             isUnread: false,
           ),
-          _buildNotificationItem(
+          const NotificationTile(
             icon: Icons.cancel_outlined,
             title: 'Cancellation Notice',
             description: 'Your Reservation Has Been Canceled or Booking Cancelled Successfully.',
             time: 'Yesterday',
             isUnread: false,
           ),
-          _buildNotificationItem(
+          const NotificationTile(
             icon: Icons.discount_outlined,
             title: 'Discount Notification',
             description: 'Congratulations! You\'ve unlocked a 10% discount on your next rental.',
@@ -185,78 +187,6 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
             isUnread: false,
           ),
           const SizedBox(height: 100),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildNotificationItem({
-    required IconData icon,
-    required String title,
-    required String description,
-    required String time,
-    required bool isUnread,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 18),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: 44,
-            height: 44,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(color: AppColors.cardBorder, width: 1.2),
-            ),
-            child: Icon(icon, size: 20, color: AppColors.textPrimary),
-          ),
-          const SizedBox(width: 14),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Text(
-                        title,
-                        style: AppTextStyles.body.copyWith(fontWeight: FontWeight.w700),
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          time,
-                          style: AppTextStyles.caption.copyWith(color: AppColors.textMuted, fontSize: 10),
-                        ),
-                        if (isUnread) ...[
-                          const SizedBox(width: 6),
-                          Container(
-                            width: 8,
-                            height: 8,
-                            decoration: const BoxDecoration(
-                              color: AppColors.accentBlue,
-                              shape: BoxShape.circle,
-                            ),
-                          ),
-                        ],
-                      ],
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  description,
-                  style: AppTextStyles.caption.copyWith(
-                    color: AppColors.textSecondary,
-                    height: 1.35,
-                  ),
-                ),
-              ],
-            ),
-          ),
         ],
       ),
     );

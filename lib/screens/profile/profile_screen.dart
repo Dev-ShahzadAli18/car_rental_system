@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/app_text_styles.dart';
 import '../../widgets/custom_app_bar.dart';
+import '../../widgets/profile_menu_tile.dart';
 
 class ProfileScreen extends StatelessWidget {
   final VoidCallback? onBackTap;
@@ -102,60 +103,60 @@ class ProfileScreen extends StatelessWidget {
               style: AppTextStyles.titleSmall.copyWith(fontSize: 16),
             ),
             const SizedBox(height: 12),
-            _buildMenuItem(
+            ProfileMenuTile(
               icon: Icons.favorite_border_rounded,
               title: 'Favorite Cars',
               onTap: () {},
             ),
-            _buildMenuItem(
+            ProfileMenuTile(
               icon: Icons.history_rounded,
               title: 'Previous Rent',
               onTap: () {},
             ),
-            _buildMenuItem(
+            ProfileMenuTile(
               icon: Icons.notifications_none_rounded,
               title: 'Notification',
               onTap: onNotificationTap ?? () {},
             ),
-            _buildMenuItem(
+            ProfileMenuTile(
               icon: Icons.power_outlined,
               title: 'Connected to QENT Partnerships',
               onTap: () {},
             ),
             const SizedBox(height: 20),
 
-            // Support Section ("Saport" in Figma)
+            // Support Section
             Text(
               'Support',
               style: AppTextStyles.titleSmall.copyWith(fontSize: 16),
             ),
             const SizedBox(height: 12),
-            _buildMenuItem(
+            ProfileMenuTile(
               icon: Icons.settings_outlined,
               title: 'Settings',
               onTap: () {},
             ),
-            _buildMenuItem(
+            ProfileMenuTile(
               icon: Icons.translate_rounded,
               title: 'Languages',
               onTap: () {},
             ),
-            _buildMenuItem(
+            ProfileMenuTile(
               icon: Icons.person_add_alt_outlined,
               title: 'Invite Friends',
               onTap: () {},
             ),
-            _buildMenuItem(
+            ProfileMenuTile(
               icon: Icons.shield_outlined,
               title: 'Privacy Policy',
               onTap: () {},
             ),
-            _buildMenuItem(
+            ProfileMenuTile(
               icon: Icons.headset_mic_outlined,
               title: 'Help Support',
               onTap: () {},
             ),
-            _buildMenuItem(
+            ProfileMenuTile(
               icon: Icons.logout_rounded,
               title: 'Log out',
               textColor: AppColors.red,
@@ -164,52 +165,6 @@ class ProfileScreen extends StatelessWidget {
             ),
             const SizedBox(height: 100),
           ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildMenuItem({
-    required IconData icon,
-    required String title,
-    required VoidCallback onTap,
-    Color? textColor,
-    Color? iconColor,
-  }) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.cardBorder, width: 1.2),
-      ),
-      child: ListTile(
-        onTap: onTap,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        leading: Container(
-          width: 40,
-          height: 40,
-          decoration: BoxDecoration(
-            color: const Color(0xFFF7F8FA),
-            shape: BoxShape.circle,
-          ),
-          child: Icon(
-            icon,
-            size: 20,
-            color: iconColor ?? AppColors.textPrimary,
-          ),
-        ),
-        title: Text(
-          title,
-          style: AppTextStyles.body.copyWith(
-            fontWeight: FontWeight.w500,
-            color: textColor ?? AppColors.textPrimary,
-          ),
-        ),
-        trailing: const Icon(
-          Icons.chevron_right_rounded,
-          color: AppColors.textSecondary,
-          size: 20,
         ),
       ),
     );

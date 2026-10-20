@@ -3,7 +3,10 @@ import '../../models/car_model.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/app_constants.dart';
 import '../../utils/app_text_styles.dart';
+import '../../widgets/app_input_field.dart';
+import '../../widgets/booking_stepper.dart';
 import '../../widgets/custom_app_bar.dart';
+import '../../widgets/selection_pill.dart';
 import '../payment/payment_methods_screen.dart';
 
 class BookingDetailsScreen extends StatefulWidget {
@@ -53,8 +56,8 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Top Stepper (Booking details -> Payment methods -> confirmation)
-                _buildStepper(currentStep: 0),
+                // Top Stepper using BookingStepper widget
+                const BookingStepper(currentStep: 0),
                 const SizedBox(height: 24),
 
                 // Book with driver card
@@ -96,33 +99,33 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                 ),
                 const SizedBox(height: 18),
 
-                // Full Name Input
-                _buildInputField(
+                // Full Name Input using AppInputField
+                AppInputField(
                   controller: _nameController,
-                  icon: Icons.person_outline_rounded,
+                  prefixIcon: Icons.person_outline_rounded,
                   hint: 'Full Name*',
                 ),
                 const SizedBox(height: 14),
 
-                // Email Input
-                _buildInputField(
+                // Email Input using AppInputField
+                AppInputField(
                   controller: _emailController,
-                  icon: Icons.mail_outline_rounded,
+                  prefixIcon: Icons.mail_outline_rounded,
                   hint: 'Email Address*',
                   keyboardType: TextInputType.emailAddress,
                 ),
                 const SizedBox(height: 14),
 
-                // Contact Phone Input
-                _buildInputField(
+                // Contact Phone Input using AppInputField
+                AppInputField(
                   controller: _phoneController,
-                  icon: Icons.phone_outlined,
+                  prefixIcon: Icons.phone_outlined,
                   hint: 'Contact*',
                   keyboardType: TextInputType.phone,
                 ),
                 const SizedBox(height: 24),
 
-                // Gender Section
+                // Gender Section using SelectionPill
                 Text(
                   'Gender',
                   style: AppTextStyles.titleSmall.copyWith(fontSize: 16),
@@ -130,16 +133,31 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                 const SizedBox(height: 12),
                 Row(
                   children: [
-                    _buildGenderPill('Male', Icons.male_rounded),
+                    SelectionPill(
+                      label: 'Male',
+                      icon: Icons.male_rounded,
+                      isSelected: _selectedGender == 'Male',
+                      onTap: () => setState(() => _selectedGender = 'Male'),
+                    ),
                     const SizedBox(width: 12),
-                    _buildGenderPill('Female', Icons.female_rounded),
+                    SelectionPill(
+                      label: 'Female',
+                      icon: Icons.female_rounded,
+                      isSelected: _selectedGender == 'Female',
+                      onTap: () => setState(() => _selectedGender = 'Female'),
+                    ),
                     const SizedBox(width: 12),
-                    _buildGenderPill('Others', Icons.transgender_rounded),
+                    SelectionPill(
+                      label: 'Others',
+                      icon: Icons.transgender_rounded,
+                      isSelected: _selectedGender == 'Others',
+                      onTap: () => setState(() => _selectedGender = 'Others'),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 24),
 
-                // Rental Date & Time Section
+                // Rental Date & Time Section using SelectionPill
                 Text(
                   'Rental  Date &Time',
                   style: AppTextStyles.titleSmall.copyWith(fontSize: 16),
@@ -148,27 +166,10 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: ['Hour', 'Day', 'Weekly', 'Monthly'].map((type) {
-                    final isSelected = _selectedRentalType == type;
-                    return GestureDetector(
+                    return SelectionPill(
+                      label: type,
+                      isSelected: _selectedRentalType == type,
                       onTap: () => setState(() => _selectedRentalType = type),
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
-                        decoration: BoxDecoration(
-                          color: isSelected ? AppColors.primaryDark : Colors.white,
-                          borderRadius: BorderRadius.circular(30),
-                          border: Border.all(
-                            color: isSelected ? AppColors.primaryDark : AppColors.cardBorder,
-                            width: 1.2,
-                          ),
-                        ),
-                        child: Text(
-                          type,
-                          style: AppTextStyles.bodySmall.copyWith(
-                            color: isSelected ? Colors.white : AppColors.textPrimary,
-                            fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
-                          ),
-                        ),
-                      ),
                     );
                   }).toList(),
                 ),
@@ -243,9 +244,9 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                   style: AppTextStyles.titleSmall.copyWith(fontSize: 16),
                 ),
                 const SizedBox(height: 12),
-                _buildInputField(
+                AppInputField(
                   controller: _locationController,
-                  icon: Icons.location_on_outlined,
+                  prefixIcon: Icons.location_on_outlined,
                   hint: 'Location',
                 ),
                 const SizedBox(height: 20),
@@ -297,141 +298,6 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildStepper({required int currentStep}) {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            _buildStepCircle(0, currentStep >= 0),
-            _buildStepLine(currentStep >= 1),
-            _buildStepCircle(1, currentStep >= 1),
-            _buildStepLine(currentStep >= 2),
-            _buildStepCircle(2, currentStep >= 2),
-          ],
-        ),
-        const SizedBox(height: 8),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'Booking details',
-              style: AppTextStyles.caption.copyWith(
-                fontWeight: currentStep == 0 ? FontWeight.w700 : FontWeight.w500,
-                color: currentStep == 0 ? AppColors.textPrimary : AppColors.textSecondary,
-              ),
-            ),
-            Text(
-              'Payment methods',
-              style: AppTextStyles.caption.copyWith(
-                fontWeight: currentStep == 1 ? FontWeight.w700 : FontWeight.w500,
-                color: currentStep == 1 ? AppColors.textPrimary : AppColors.textSecondary,
-              ),
-            ),
-            Text(
-              'confirmation',
-              style: AppTextStyles.caption.copyWith(
-                fontWeight: currentStep == 2 ? FontWeight.w700 : FontWeight.w500,
-                color: currentStep == 2 ? AppColors.textPrimary : AppColors.textSecondary,
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
-  Widget _buildStepCircle(int step, bool isActive) {
-    return Container(
-      width: 18,
-      height: 18,
-      decoration: BoxDecoration(
-        color: isActive ? AppColors.primaryDark : const Color(0xFFD3D6DC),
-        shape: BoxShape.circle,
-        border: Border.all(color: Colors.white, width: 2),
-      ),
-    );
-  }
-
-  Widget _buildStepLine(bool isActive) {
-    return Container(
-      width: 100,
-      height: 2.5,
-      color: isActive ? AppColors.primaryDark : const Color(0xFFD3D6DC),
-    );
-  }
-
-  Widget _buildInputField({
-    required TextEditingController controller,
-    required IconData icon,
-    required String hint,
-    TextInputType keyboardType = TextInputType.text,
-  }) {
-    return Container(
-      height: 54,
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.cardBorder, width: 1.2),
-      ),
-      child: Row(
-        children: [
-          Icon(icon, color: AppColors.textSecondary, size: 20),
-          const SizedBox(width: 12),
-          Expanded(
-            child: TextField(
-              controller: controller,
-              keyboardType: keyboardType,
-              style: AppTextStyles.body,
-              decoration: InputDecoration(
-                hintText: hint,
-                hintStyle: AppTextStyles.subtitle.copyWith(color: AppColors.textMuted),
-                border: InputBorder.none,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildGenderPill(String gender, IconData icon) {
-    final isSelected = _selectedGender == gender;
-    return GestureDetector(
-      onTap: () => setState(() => _selectedGender = gender),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-        decoration: BoxDecoration(
-          color: isSelected ? AppColors.primaryDark : Colors.white,
-          borderRadius: BorderRadius.circular(30),
-          border: Border.all(
-            color: isSelected ? AppColors.primaryDark : AppColors.cardBorder,
-            width: 1.2,
-          ),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(
-              icon,
-              size: 16,
-              color: isSelected ? Colors.white : AppColors.textPrimary,
-            ),
-            const SizedBox(width: 6),
-            Text(
-              gender,
-              style: AppTextStyles.bodySmall.copyWith(
-                color: isSelected ? Colors.white : AppColors.textPrimary,
-                fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }

@@ -3,8 +3,11 @@ import '../../models/car_model.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/app_constants.dart';
 import '../../utils/app_text_styles.dart';
+import '../../widgets/car_feature_card.dart';
+import '../../widgets/circular_icon_button.dart';
 import '../../widgets/custom_app_bar.dart';
 import '../../widgets/rating_stars.dart';
+import '../../widgets/review_card.dart';
 import '../booking/booking_details_screen.dart';
 import '../communication/chat_screen.dart';
 
@@ -61,7 +64,7 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                           child: Image.network(
                             car.imageUrl,
                             fit: BoxFit.contain,
-                            errorBuilder: (context, error, stackTrace) => const Icon(
+                            errorBuilder: (_, _, _) => const Icon(
                               Icons.directions_car,
                               size: 100,
                               color: AppColors.textMuted,
@@ -220,13 +223,13 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                             ),
                           ),
                           // Phone Call Action
-                          _buildCircularAction(
+                          CircularIconButton(
                             icon: Icons.phone_outlined,
                             onTap: () {},
                           ),
                           const SizedBox(width: 10),
                           // Chat Message Action
-                          _buildCircularAction(
+                          CircularIconButton(
                             icon: Icons.chat_bubble_outline_rounded,
                             onTap: () {
                               Navigator.of(context).push(
@@ -250,7 +253,7 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                       ),
                       const SizedBox(height: 14),
 
-                      // 3x2 Grid of Features
+                      // 3x2 Grid of Features using CarFeatureCard
                       GridView.count(
                         crossAxisCount: 3,
                         shrinkWrap: true,
@@ -259,32 +262,32 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                         mainAxisSpacing: 12,
                         childAspectRatio: 0.95,
                         children: [
-                          _buildFeatureCard(
+                          CarFeatureCard(
                             icon: Icons.airline_seat_recline_normal_rounded,
                             title: 'Capacity',
                             value: '${car.seats} Seats',
                           ),
-                          _buildFeatureCard(
+                          CarFeatureCard(
                             icon: Icons.power_outlined,
                             title: 'Engine Out',
                             value: car.engineOutput ?? '670 HP',
                           ),
-                          _buildFeatureCard(
+                          CarFeatureCard(
                             icon: Icons.speed_rounded,
                             title: 'Max Speed',
                             value: car.maxSpeed ?? '250km/h',
                           ),
-                          _buildFeatureCard(
+                          CarFeatureCard(
                             icon: Icons.album_rounded,
                             title: 'Advance',
                             value: car.autopilotType ?? 'Autopilot',
                           ),
-                          _buildFeatureCard(
+                          CarFeatureCard(
                             icon: Icons.bolt_rounded,
                             title: 'Single Charge',
                             value: car.singleChargeOrFuel ?? '405 Miles',
                           ),
-                          _buildFeatureCard(
+                          const CarFeatureCard(
                             icon: Icons.local_parking_rounded,
                             title: 'Advance',
                             value: 'Auto Parking',
@@ -312,19 +315,19 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                       ),
                       const SizedBox(height: 14),
 
-                      // Review Cards Carousel
-                      SingleChildScrollView(
+                      // Review Cards Carousel using ReviewCard
+                      const SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: Row(
                           children: [
-                            _buildReviewCard(
+                            ReviewCard(
                               name: 'Mr. Jack',
                               rating: '5.0',
                               comment: 'The rental car was clean, reliable, and the service was quick and efficient.',
                               avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80',
                             ),
-                            const SizedBox(width: 14),
-                            _buildReviewCard(
+                            SizedBox(width: 14),
+                            ReviewCard(
                               name: 'Robert',
                               rating: '5.0',
                               comment: 'Smooth drive, battery lasted throughout my whole trip. Highly recommended!',
@@ -377,133 +380,6 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                   ],
                 ),
               ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildCircularAction({
-    required IconData icon,
-    required VoidCallback onTap,
-  }) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        width: 42,
-        height: 42,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          shape: BoxShape.circle,
-          border: Border.all(color: AppColors.cardBorder, width: 1.2),
-        ),
-        child: Icon(
-          icon,
-          size: 20,
-          color: AppColors.textPrimary,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildFeatureCard({
-    required IconData icon,
-    required String title,
-    required String value,
-  }) {
-    return Container(
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: const Color(0xFFF6F7F9),
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            width: 32,
-            height: 32,
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              shape: BoxShape.circle,
-            ),
-            child: Icon(
-              icon,
-              size: 18,
-              color: AppColors.textPrimary,
-            ),
-          ),
-          const Spacer(),
-          Text(
-            title,
-            style: AppTextStyles.caption.copyWith(
-              color: AppColors.textSecondary,
-              fontSize: 10,
-            ),
-          ),
-          const SizedBox(height: 2),
-          Text(
-            value,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: AppTextStyles.bodySmall.copyWith(
-              fontWeight: FontWeight.w700,
-              fontSize: 12,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildReviewCard({
-    required String name,
-    required String rating,
-    required String comment,
-    required String avatar,
-  }) {
-    return Container(
-      width: 250,
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.cardBorder, width: 1.2),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              CircleAvatar(
-                radius: 16,
-                backgroundImage: NetworkImage(avatar),
-              ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Text(
-                  name,
-                  style: AppTextStyles.bodySmall.copyWith(fontWeight: FontWeight.w700),
-                ),
-              ),
-              Text(
-                rating,
-                style: AppTextStyles.bodySmall.copyWith(fontWeight: FontWeight.w600),
-              ),
-              const SizedBox(width: 2),
-              const Icon(Icons.star_rounded, size: 14, color: AppColors.starOrange),
-            ],
-          ),
-          const SizedBox(height: 8),
-          Text(
-            comment,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            style: AppTextStyles.caption.copyWith(
-              color: AppColors.textSecondary,
-              height: 1.3,
             ),
           ),
         ],

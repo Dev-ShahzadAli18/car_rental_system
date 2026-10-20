@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../../models/brand_model.dart';
 import '../../models/car_model.dart';
 import '../../utils/app_colors.dart';
-import '../../utils/app_text_styles.dart';
 import '../../widgets/brand_item_card.dart';
 import '../../widgets/car_banner_card.dart';
 import '../../widgets/car_card.dart';
@@ -11,6 +10,7 @@ import '../../widgets/custom_bottom_nav_bar.dart';
 import '../../widgets/custom_button.dart';
 import '../../widgets/custom_search_bar.dart';
 import '../../widgets/rating_stars.dart';
+import '../../widgets/section_header.dart';
 
 class DesignSystemPreviewScreen extends StatefulWidget {
   const DesignSystemPreviewScreen({super.key});
@@ -40,7 +40,8 @@ class _DesignSystemPreviewScreenState extends State<DesignSystemPreviewScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Section 1: Home App Bar
-            _buildSectionHeader('1. Home App Bar Variant'),
+            const SectionHeader(title: '1. Home App Bar Variant'),
+            const SizedBox(height: 12),
             Container(
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -57,7 +58,8 @@ class _DesignSystemPreviewScreenState extends State<DesignSystemPreviewScreen> {
             const SizedBox(height: 24),
 
             // Section 2: Search Bar & Filter
-            _buildSectionHeader('2. Custom Search Bar & Filter Action'),
+            const SectionHeader(title: '2. Custom Search Bar & Filter Action'),
+            const SizedBox(height: 12),
             CustomSearchBar(
               onFilterTap: () {
                 ScaffoldMessenger.of(context).showSnackBar(
@@ -68,7 +70,8 @@ class _DesignSystemPreviewScreenState extends State<DesignSystemPreviewScreen> {
             const SizedBox(height: 24),
 
             // Section 3: Brand Category Items
-            _buildSectionHeader('3. Brand Category Circles (Home Screen)'),
+            const SectionHeader(title: '3. Brand Category Circles (Home Screen)'),
+            const SizedBox(height: 12),
             SizedBox(
               height: 100,
               child: ListView.separated(
@@ -88,7 +91,8 @@ class _DesignSystemPreviewScreenState extends State<DesignSystemPreviewScreen> {
             ),
             const SizedBox(height: 16),
 
-            _buildSectionHeader('3b. Brand Pills (Search Screen)'),
+            const SectionHeader(title: '3b. Brand Pills (Search Screen)'),
+            const SizedBox(height: 12),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
@@ -108,7 +112,8 @@ class _DesignSystemPreviewScreenState extends State<DesignSystemPreviewScreen> {
             const SizedBox(height: 24),
 
             // Section 4: Car Cards
-            _buildSectionHeader('4. Car Cards (Best Cars - Home & Search)'),
+            const SectionHeader(title: '4. Car Cards (Best Cars - Home & Search)'),
+            const SizedBox(height: 12),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
@@ -136,7 +141,8 @@ class _DesignSystemPreviewScreenState extends State<DesignSystemPreviewScreen> {
             const SizedBox(height: 24),
 
             // Section 5: Nearby Banner Card
-            _buildSectionHeader('5. Nearby / Popular Cars Banner Card'),
+            const SectionHeader(title: '5. Nearby / Popular Cars Banner Card'),
+            const SizedBox(height: 12),
             CarBannerCard(
               car: mockNearbyCars.first,
               onTap: () {},
@@ -144,7 +150,8 @@ class _DesignSystemPreviewScreenState extends State<DesignSystemPreviewScreen> {
             const SizedBox(height: 24),
 
             // Section 6: Rating Badges
-            _buildSectionHeader('6. Rating Badges'),
+            const SectionHeader(title: '6. Rating Badges'),
+            const SizedBox(height: 12),
             const Wrap(
               spacing: 16,
               children: [
@@ -155,7 +162,8 @@ class _DesignSystemPreviewScreenState extends State<DesignSystemPreviewScreen> {
             const SizedBox(height: 24),
 
             // Section 7: Action Buttons
-            _buildSectionHeader('7. Action Buttons'),
+            const SectionHeader(title: '7. Action Buttons'),
+            const SizedBox(height: 12),
             CustomElevatedButton(
               text: 'Book Now',
               backgroundColor: AppColors.primaryDark,
@@ -176,19 +184,6 @@ class _DesignSystemPreviewScreenState extends State<DesignSystemPreviewScreen> {
       bottomNavigationBar: CustomBottomNavBar(
         currentIndex: _selectedNavIndex,
         onTap: (index) => setState(() => _selectedNavIndex = index),
-      ),
-    );
-  }
-
-  Widget _buildSectionHeader(String title) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 12.0),
-      child: Text(
-        title,
-        style: AppTextStyles.titleSmall.copyWith(
-          color: AppColors.textPrimary,
-          fontWeight: FontWeight.w700,
-        ),
       ),
     );
   }

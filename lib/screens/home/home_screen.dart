@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import '../../models/brand_model.dart';
 import '../../models/car_model.dart';
 import '../../utils/app_colors.dart';
-import '../../utils/app_text_styles.dart';
 import '../../widgets/brand_item_card.dart';
 import '../../widgets/car_banner_card.dart';
 import '../../widgets/car_card.dart';
 import '../../widgets/custom_app_bar.dart';
 import '../../widgets/custom_search_bar.dart';
+import '../../widgets/section_header.dart';
 import '../car_details/car_details_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -73,10 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(height: 24),
 
               // Brands Section Header
-              Text(
-                'Brands',
-                style: AppTextStyles.title.copyWith(fontSize: 18),
-              ),
+              const SectionHeader(title: 'Brands'),
               const SizedBox(height: 14),
 
               // Brands List
@@ -101,29 +98,11 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(height: 24),
 
               // Best Cars Section Header
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Best Cars',
-                    style: AppTextStyles.title.copyWith(fontSize: 18),
-                  ),
-                  GestureDetector(
-                    onTap: widget.onSearchTap,
-                    child: Text(
-                      'View All',
-                      style: AppTextStyles.bodySmall.copyWith(
-                        color: AppColors.textSecondary,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 4),
-              Text(
-                'Available',
-                style: AppTextStyles.caption.copyWith(color: AppColors.textSecondary),
+              SectionHeader(
+                title: 'Best Cars',
+                subtitle: 'Available',
+                actionText: 'View All',
+                onActionTap: widget.onSearchTap,
               ),
               const SizedBox(height: 14),
 
@@ -152,24 +131,10 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(height: 24),
 
               // Nearby Section Header
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Nearby',
-                    style: AppTextStyles.title.copyWith(fontSize: 18),
-                  ),
-                  GestureDetector(
-                    onTap: widget.onSearchTap,
-                    child: Text(
-                      'View All',
-                      style: AppTextStyles.bodySmall.copyWith(
-                        color: AppColors.textSecondary,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                ],
+              SectionHeader(
+                title: 'Nearby',
+                actionText: 'View All',
+                onActionTap: widget.onSearchTap,
               ),
               const SizedBox(height: 14),
 
@@ -178,7 +143,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 car: mockNearbyCars.first,
                 onTap: () => _onCarTapped(mockNearbyCars.first),
               ),
-              const SizedBox(height: 100), // padding for floating bottom nav
+              const SizedBox(height: 100),
             ],
           ),
         ),

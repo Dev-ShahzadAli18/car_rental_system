@@ -3,7 +3,12 @@ import '../../models/car_model.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/app_constants.dart';
 import '../../utils/app_text_styles.dart';
+import '../../widgets/app_input_field.dart';
+import '../../widgets/booking_stepper.dart';
+import '../../widgets/congratulations_modal.dart';
+import '../../widgets/credit_card_widget.dart';
 import '../../widgets/custom_app_bar.dart';
+import '../../widgets/digital_wallet_button.dart';
 
 class PaymentMethodsScreen extends StatefulWidget {
   final double totalAmount;
@@ -41,85 +46,6 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
     super.dispose();
   }
 
-  void _showCongratulationsModal() {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (context) {
-        return Container(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(28),
-              topRight: Radius.circular(28),
-            ),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              // Celebration emoji or icon
-              Container(
-                width: 80,
-                height: 80,
-                decoration: BoxDecoration(
-                  color: const Color(0xFFFFF4DE),
-                  shape: BoxShape.circle,
-                ),
-                child: const Center(
-                  child: Icon(
-                    Icons.celebration_rounded,
-                    color: Color(0xFFFFB800),
-                    size: 44,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-
-              Text(
-                'Congratulations',
-                style: AppTextStyles.headingMedium.copyWith(fontSize: 22),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                'Your car is ready for booking. Your booking has been successfully confirmed. Get ready to start your journey.',
-                textAlign: TextAlign.center,
-                style: AppTextStyles.bodySmall.copyWith(
-                  color: AppColors.textSecondary,
-                  height: 1.4,
-                ),
-              ),
-              const SizedBox(height: 28),
-
-              GestureDetector(
-                onTap: () {
-                  Navigator.of(context).popUntil((route) => route.isFirst);
-                },
-                child: Container(
-                  height: 54,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: AppColors.primaryDark,
-                    borderRadius: BorderRadius.circular(27),
-                    boxShadow: AppConstants.buttonShadow,
-                  ),
-                  child: Center(
-                    child: Text(
-                      'Back to Home',
-                      style: AppTextStyles.button.copyWith(fontSize: 16),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 12),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -136,12 +62,12 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Top Stepper (Booking checked -> Payment methods active -> confirmation)
-                _buildStepper(),
+                // Top Stepper using BookingStepper widget
+                const BookingStepper(currentStep: 1),
                 const SizedBox(height: 20),
 
-                // Dark Visual Credit Card
-                _buildCreditCard(),
+                // Dark Visual Credit Card using CreditCardWidget
+                const CreditCardWidget(),
                 const SizedBox(height: 24),
 
                 // Select Payment Receive Method
@@ -194,50 +120,34 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
                 ),
                 const SizedBox(height: 12),
 
-                // Full Name
-                _buildCardField(controller: _nameController, hint: 'Full Name'),
+                // Full Name using AppInputField
+                AppInputField(
+                  controller: _nameController,
+                  hint: 'Full Name',
+                ),
                 const SizedBox(height: 12),
 
-                // Email Address
-                _buildCardField(
+                // Email Address using AppInputField
+                AppInputField(
                   controller: _emailController,
                   hint: 'Email Address',
                   keyboardType: TextInputType.emailAddress,
                 ),
                 const SizedBox(height: 12),
 
-                // Card Number with card brand logos
-                Container(
-                  height: 54,
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(16),
-                    border: Border.all(color: AppColors.cardBorder, width: 1.2),
-                  ),
-                  child: Row(
+                // Card Number with card brand logos using AppInputField
+                AppInputField(
+                  controller: _cardNumberController,
+                  hint: 'Card Number',
+                  keyboardType: TextInputType.number,
+                  suffixWidget: Row(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
-                      Expanded(
-                        child: TextField(
-                          controller: _cardNumberController,
-                          keyboardType: TextInputType.number,
-                          style: AppTextStyles.body,
-                          decoration: InputDecoration(
-                            hintText: 'Card Number',
-                            hintStyle: AppTextStyles.subtitle.copyWith(color: AppColors.textMuted),
-                            border: InputBorder.none,
-                          ),
-                        ),
-                      ),
-                      Row(
-                        children: [
-                          _buildBrandBadge('VISA', Colors.blue.shade900),
-                          const SizedBox(width: 4),
-                          _buildBrandBadge('MC', Colors.red.shade700),
-                          const SizedBox(width: 4),
-                          _buildBrandBadge('AMEX', Colors.teal.shade800),
-                        ],
-                      ),
+                      _buildBrandBadge('VISA', Colors.blue.shade900),
+                      const SizedBox(width: 4),
+                      _buildBrandBadge('MC', Colors.red.shade700),
+                      const SizedBox(width: 4),
+                      _buildBrandBadge('AMEX', Colors.teal.shade800),
                     ],
                   ),
                 ),
@@ -247,7 +157,7 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
                 Row(
                   children: [
                     Expanded(
-                      child: _buildCardField(
+                      child: AppInputField(
                         controller: _expiryController,
                         hint: 'MM / YY',
                         keyboardType: TextInputType.datetime,
@@ -255,32 +165,12 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
                     ),
                     const SizedBox(width: 12),
                     Expanded(
-                      child: Container(
-                        height: 54,
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(16),
-                          border: Border.all(color: AppColors.cardBorder, width: 1.2),
-                        ),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: TextField(
-                                controller: _cvcController,
-                                keyboardType: TextInputType.number,
-                                obscureText: true,
-                                style: AppTextStyles.body,
-                                decoration: InputDecoration(
-                                  hintText: 'CVC',
-                                  hintStyle: AppTextStyles.subtitle.copyWith(color: AppColors.textMuted),
-                                  border: InputBorder.none,
-                                ),
-                              ),
-                            ),
-                            const Icon(Icons.credit_card_rounded, color: AppColors.textSecondary, size: 20),
-                          ],
-                        ),
+                      child: AppInputField(
+                        controller: _cvcController,
+                        hint: 'CVC',
+                        keyboardType: TextInputType.number,
+                        obscureText: true,
+                        suffixWidget: const Icon(Icons.credit_card_rounded, color: AppColors.textSecondary, size: 20),
                       ),
                     ),
                   ],
@@ -314,8 +204,8 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
                 ),
                 const SizedBox(height: 12),
 
-                // ZIP
-                _buildCardField(
+                // ZIP using AppInputField
+                AppInputField(
                   controller: _zipController,
                   hint: 'ZIP',
                   keyboardType: TextInputType.number,
@@ -358,15 +248,13 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
                 ),
                 const SizedBox(height: 16),
 
-                // Apple Pay Button
-                _buildDigitalWalletButton(
+                // Digital Wallets using DigitalWalletButton
+                const DigitalWalletButton(
                   icon: Icons.apple_rounded,
                   label: 'Apple pay',
                 ),
                 const SizedBox(height: 12),
-
-                // Google Pay Button
-                _buildDigitalWalletButton(
+                const DigitalWalletButton(
                   icon: Icons.g_mobiledata_rounded,
                   label: 'Google Pay',
                 ),
@@ -381,7 +269,7 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
             right: 20,
             bottom: 20,
             child: GestureDetector(
-              onTap: _showCongratulationsModal,
+              onTap: () => CongratulationsModal.show(context),
               child: Container(
                 height: 56,
                 decoration: BoxDecoration(
@@ -403,213 +291,6 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
     );
   }
 
-  Widget _buildCreditCard() {
-    return Container(
-      height: 200,
-      width: double.infinity,
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        gradient: const LinearGradient(
-          colors: [Color(0xFF1E2224), Color(0xFF2C3236)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.18),
-            blurRadius: 18,
-            offset: const Offset(0, 8),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Mastercard circles & VISA logo
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(
-                width: 44,
-                child: Stack(
-                  children: [
-                    Container(
-                      width: 26,
-                      height: 26,
-                      decoration: const BoxDecoration(
-                        color: Color(0xFFEB001B),
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                    Positioned(
-                      left: 16,
-                      child: Container(
-                        width: 26,
-                        height: 26,
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFF79E1B).withValues(alpha: 0.9),
-                          shape: BoxShape.circle,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const Text(
-                'VISA',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w900,
-                  fontSize: 22,
-                  fontStyle: FontStyle.italic,
-                  letterSpacing: 1.2,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 14),
-
-          // Chip icon
-          Container(
-            width: 32,
-            height: 24,
-            decoration: BoxDecoration(
-              color: const Color(0xFFE5A93C),
-              borderRadius: BorderRadius.circular(5),
-            ),
-          ),
-          const Spacer(),
-
-          // Cardholder & Expiry
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'BANJAMIN JACK',
-                style: AppTextStyles.caption.copyWith(
-                  color: Colors.white70,
-                  fontWeight: FontWeight.w600,
-                  letterSpacing: 1,
-                ),
-              ),
-              Text(
-                'Expire: 10-5-2030',
-                style: AppTextStyles.caption.copyWith(
-                  color: Colors.white70,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 6),
-
-          // Card Number
-          const Text(
-            '9655   9655   9655   9655',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 17,
-              fontWeight: FontWeight.w700,
-              letterSpacing: 2,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildStepper() {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // Checked step 0
-            Container(
-              width: 20,
-              height: 20,
-              decoration: const BoxDecoration(
-                color: AppColors.primaryDark,
-                shape: BoxShape.circle,
-              ),
-              child: const Icon(Icons.check, size: 14, color: Colors.white),
-            ),
-            Container(width: 90, height: 2.5, color: AppColors.primaryDark),
-            // Active step 1
-            Container(
-              width: 20,
-              height: 20,
-              decoration: BoxDecoration(
-                color: AppColors.primaryDark,
-                shape: BoxShape.circle,
-                border: Border.all(color: Colors.white, width: 2),
-              ),
-            ),
-            Container(width: 90, height: 2.5, color: const Color(0xFFD3D6DC)),
-            // Inactive step 2
-            Container(
-              width: 18,
-              height: 18,
-              decoration: const BoxDecoration(
-                color: Color(0xFFD3D6DC),
-                shape: BoxShape.circle,
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 8),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'Booking details',
-              style: AppTextStyles.caption.copyWith(color: AppColors.textSecondary),
-            ),
-            Text(
-              'Payment methods',
-              style: AppTextStyles.caption.copyWith(
-                fontWeight: FontWeight.w700,
-                color: AppColors.textPrimary,
-              ),
-            ),
-            Text(
-              'confirmation',
-              style: AppTextStyles.caption.copyWith(color: AppColors.textSecondary),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
-  Widget _buildCardField({
-    required TextEditingController controller,
-    required String hint,
-    TextInputType keyboardType = TextInputType.text,
-  }) {
-    return Container(
-      height: 54,
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.cardBorder, width: 1.2),
-      ),
-      child: Center(
-        child: TextField(
-          controller: controller,
-          keyboardType: keyboardType,
-          style: AppTextStyles.body,
-          decoration: InputDecoration(
-            hintText: hint,
-            hintStyle: AppTextStyles.subtitle.copyWith(color: AppColors.textMuted),
-            border: InputBorder.none,
-          ),
-        ),
-      ),
-    );
-  }
-
   Widget _buildBrandBadge(String text, Color color) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
@@ -624,30 +305,6 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
           fontWeight: FontWeight.bold,
           color: color,
         ),
-      ),
-    );
-  }
-
-  Widget _buildDigitalWalletButton({
-    required IconData icon,
-    required String label,
-  }) {
-    return Container(
-      height: 50,
-      decoration: BoxDecoration(
-        color: const Color(0xFFEEF0F3),
-        borderRadius: BorderRadius.circular(25),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(icon, color: AppColors.textPrimary, size: 24),
-          const SizedBox(width: 8),
-          Text(
-            label,
-            style: AppTextStyles.body.copyWith(fontWeight: FontWeight.w600),
-          ),
-        ],
       ),
     );
   }
