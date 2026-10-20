@@ -6,7 +6,7 @@ import '../../utils/app_text_styles.dart';
 import '../../widgets/custom_button.dart';
 
 class OnboardingPage extends StatefulWidget {
-  OnboardingPage({super.key});
+  const OnboardingPage({super.key});
 
   @override
   State<OnboardingPage> createState() => _OnboardingPageState();

@@ -1,11 +1,10 @@
 import 'package:car_rental_system/screens/Auth/boarding_screen.dart';
-import 'package:car_rental_system/screens/Auth/login_screen.dart';
 import 'package:flutter/material.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/app_text_styles.dart';
 
 class SplashScreen extends StatefulWidget {
-  SplashScreen({super.key});
+  const SplashScreen({super.key});
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();

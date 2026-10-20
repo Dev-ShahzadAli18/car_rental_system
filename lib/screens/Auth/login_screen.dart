@@ -2,9 +2,10 @@ import 'package:car_rental_system/widgets/custom_button.dart';
 import 'package:car_rental_system/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import '../main_nav_wrapper.dart';
 
 class LoginPage extends StatefulWidget {
-  LoginPage({super.key});
+  const LoginPage({super.key});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -59,6 +60,12 @@ class _LoginPageState extends State<LoginPage> {
         );
 
         message("Account created successfully");
+      }
+      if (mounted) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const MainNavWrapper()),
+        );
       }
     } on FirebaseAuthException catch (e) {
       message(e.message ?? "Something went wrong");
@@ -283,6 +290,20 @@ class _LoginPageState extends State<LoginPage> {
                     isLogin = !isLogin;
                   });
                 },
+              ),
+              const SizedBox(height: 12),
+              TextButton.icon(
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => const MainNavWrapper()),
+                  );
+                },
+                icon: const Icon(Icons.explore_outlined, color: Colors.white70, size: 18),
+                label: const Text(
+                  'Explore App (Skip)',
+                  style: TextStyle(color: Colors.white70, fontSize: 13),
+                ),
               ),
             ],
           ),
