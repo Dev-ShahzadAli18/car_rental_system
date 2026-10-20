@@ -168,7 +168,6 @@ class CustomOutlinedButton extends StatelessWidget {
   }
 }
 
-
 class CustomTextButton extends StatelessWidget {
   final String text;
   final VoidCallback? onTap;

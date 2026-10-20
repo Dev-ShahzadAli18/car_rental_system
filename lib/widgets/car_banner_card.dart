@@ -26,7 +26,7 @@ class CarBannerCard extends StatelessWidget {
         ),
         child: Stack(
           children: [
-            // Details on the left/top
+            
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
@@ -63,7 +63,6 @@ class CarBannerCard extends StatelessWidget {
               ),
             ),
 
-            // Car cutout image on the right
             Positioned(
               right: 10,
               bottom: 6,

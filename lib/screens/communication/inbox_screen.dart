@@ -28,7 +28,7 @@ class _InboxScreenState extends State<InboxScreen> {
         bottom: false,
         child: Column(
           children: [
-            // Custom Chats App Bar
+            
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
               child: Row(
@@ -89,17 +89,16 @@ class _InboxScreenState extends State<InboxScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(height: 10),
-                    // Search Bar
+                    
                     const CustomSearchBar(),
                     const SizedBox(height: 20),
 
-                    // Stories Horizontal Carousel
                     SizedBox(
                       height: 95,
                       child: ListView(
                         scrollDirection: Axis.horizontal,
                         children: [
-                          // Add Story Circle
+                          
                           Column(
                             children: [
                               Container(
@@ -122,7 +121,6 @@ class _InboxScreenState extends State<InboxScreen> {
                           ),
                           const SizedBox(width: 14),
 
-                          // Contact Stories
                           ..._contacts.map((contact) {
                             return Padding(
                               padding: const EdgeInsets.only(right: 14),
@@ -154,7 +152,6 @@ class _InboxScreenState extends State<InboxScreen> {
                     ),
                     const SizedBox(height: 16),
 
-                    // Chats List
                     ListView.separated(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
@@ -177,7 +174,7 @@ class _InboxScreenState extends State<InboxScreen> {
                             padding: const EdgeInsets.symmetric(vertical: 8),
                             child: Row(
                               children: [
-                                // Avatar with online indicator
+                                
                                 Stack(
                                   children: [
                                     CircleAvatar(
@@ -202,7 +199,6 @@ class _InboxScreenState extends State<InboxScreen> {
                                 ),
                                 const SizedBox(width: 14),
 
-                                // Name and Last message
                                 Expanded(
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -229,7 +225,6 @@ class _InboxScreenState extends State<InboxScreen> {
                                   ),
                                 ),
 
-                                // Timestamp and Unread badge
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [

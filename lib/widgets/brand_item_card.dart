@@ -4,8 +4,8 @@ import '../utils/app_colors.dart';
 import '../utils/app_text_styles.dart';
 
 enum BrandCardStyle {
-  circle, // Home screen circle icon with label below
-  pill,   // Search screen pill button
+  circle, 
+  pill,   
 }
 
 class BrandItemCard extends StatelessWidget {
@@ -30,7 +30,6 @@ class BrandItemCard extends StatelessWidget {
     return _buildCircleVariant();
   }
 
-  // Home Screen Circle Variant
   Widget _buildCircleVariant() {
     return GestureDetector(
       onTap: onTap,
@@ -72,7 +71,6 @@ class BrandItemCard extends StatelessWidget {
     );
   }
 
-  // Search Screen Pill Variant
   Widget _buildPillVariant() {
     return GestureDetector(
       onTap: onTap,

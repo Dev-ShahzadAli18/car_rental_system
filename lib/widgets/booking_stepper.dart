@@ -3,7 +3,7 @@ import '../utils/app_colors.dart';
 import '../utils/app_text_styles.dart';
 
 class BookingStepper extends StatelessWidget {
-  final int currentStep; // 0: Booking details, 1: Payment methods, 2: Confirmation
+  final int currentStep; 
 
   const BookingStepper({
     super.key,

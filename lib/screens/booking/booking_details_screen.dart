@@ -56,11 +56,10 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Top Stepper using BookingStepper widget
+                
                 const BookingStepper(currentStep: 0),
                 const SizedBox(height: 24),
 
-                // Book with driver card
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
                   decoration: BoxDecoration(
@@ -99,7 +98,6 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                 ),
                 const SizedBox(height: 18),
 
-                // Full Name Input using AppInputField
                 AppInputField(
                   controller: _nameController,
                   prefixIcon: Icons.person_outline_rounded,
@@ -107,7 +105,6 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                 ),
                 const SizedBox(height: 14),
 
-                // Email Input using AppInputField
                 AppInputField(
                   controller: _emailController,
                   prefixIcon: Icons.mail_outline_rounded,
@@ -116,7 +113,6 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                 ),
                 const SizedBox(height: 14),
 
-                // Contact Phone Input using AppInputField
                 AppInputField(
                   controller: _phoneController,
                   prefixIcon: Icons.phone_outlined,
@@ -125,7 +121,6 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                 ),
                 const SizedBox(height: 24),
 
-                // Gender Section using SelectionPill
                 Text(
                   'Gender',
                   style: AppTextStyles.titleSmall.copyWith(fontSize: 16),
@@ -157,7 +152,6 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                 ),
                 const SizedBox(height: 24),
 
-                // Rental Date & Time Section using SelectionPill
                 Text(
                   'Rental  Date &Time',
                   style: AppTextStyles.titleSmall.copyWith(fontSize: 16),
@@ -175,7 +169,6 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                 ),
                 const SizedBox(height: 18),
 
-                // Pick up & Return Date Split Card
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
                   decoration: BoxDecoration(
@@ -185,7 +178,7 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                   ),
                   child: Row(
                     children: [
-                      // Pickup Date
+                      
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -210,7 +203,7 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                       ),
                       Container(height: 40, width: 1.2, color: AppColors.divider),
                       const SizedBox(width: 14),
-                      // Return Date
+                      
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -238,7 +231,6 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                 ),
                 const SizedBox(height: 24),
 
-                // Car Location Section
                 Text(
                   'Car Location',
                   style: AppTextStyles.titleSmall.copyWith(fontSize: 16),
@@ -254,7 +246,6 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
             ),
           ),
 
-          // Pinned Bottom Button: "$1400  Pay Now"
           Positioned(
             left: 20,
             right: 20,

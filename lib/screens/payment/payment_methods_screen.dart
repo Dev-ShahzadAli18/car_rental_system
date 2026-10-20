@@ -62,15 +62,13 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Top Stepper using BookingStepper widget
+                
                 const BookingStepper(currentStep: 1),
                 const SizedBox(height: 20),
 
-                // Dark Visual Credit Card using CreditCardWidget
                 const CreditCardWidget(),
                 const SizedBox(height: 24),
 
-                // Select Payment Receive Method
                 Text(
                   'select payment method',
                   style: AppTextStyles.titleSmall.copyWith(fontSize: 15),
@@ -113,21 +111,18 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
                 ),
                 const SizedBox(height: 24),
 
-                // Card Information Header
                 Text(
                   'Card information',
                   style: AppTextStyles.titleSmall.copyWith(fontSize: 16),
                 ),
                 const SizedBox(height: 12),
 
-                // Full Name using AppInputField
                 AppInputField(
                   controller: _nameController,
                   hint: 'Full Name',
                 ),
                 const SizedBox(height: 12),
 
-                // Email Address using AppInputField
                 AppInputField(
                   controller: _emailController,
                   hint: 'Email Address',
@@ -135,7 +130,6 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
                 ),
                 const SizedBox(height: 12),
 
-                // Card Number with card brand logos using AppInputField
                 AppInputField(
                   controller: _cardNumberController,
                   hint: 'Card Number',
@@ -153,7 +147,6 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
                 ),
                 const SizedBox(height: 12),
 
-                // Split Expiry & CVC
                 Row(
                   children: [
                     Expanded(
@@ -177,7 +170,6 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
                 ),
                 const SizedBox(height: 20),
 
-                // Country / Region
                 Text(
                   'Country or region',
                   style: AppTextStyles.titleSmall.copyWith(fontSize: 16),
@@ -204,7 +196,6 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
                 ),
                 const SizedBox(height: 12),
 
-                // ZIP using AppInputField
                 AppInputField(
                   controller: _zipController,
                   hint: 'ZIP',
@@ -212,7 +203,6 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
                 ),
                 const SizedBox(height: 16),
 
-                // Terms Checkbox
                 Row(
                   children: [
                     Checkbox(
@@ -232,7 +222,6 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
                 ),
                 const SizedBox(height: 16),
 
-                // Divider Or
                 Row(
                   children: [
                     Expanded(child: Container(height: 1, color: AppColors.cardBorder)),
@@ -248,7 +237,6 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
                 ),
                 const SizedBox(height: 16),
 
-                // Digital Wallets using DigitalWalletButton
                 const DigitalWalletButton(
                   icon: Icons.apple_rounded,
                   label: 'Apple pay',
@@ -263,7 +251,6 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
             ),
           ),
 
-          // Pinned Bottom Button: "Continue"
           Positioned(
             left: 20,
             right: 20,

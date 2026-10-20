@@ -82,7 +82,6 @@ class CarModel {
   }
 }
 
-// Curated mock data matching the exact cars shown in the Figma screens
 final List<CarModel> mockBestCars = [
   CarModel(
     id: 'c1',

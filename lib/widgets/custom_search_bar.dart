@@ -24,7 +24,7 @@ class CustomSearchBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        // Main Search Input
+        
         Expanded(
           child: Container(
             height: 52,
@@ -56,7 +56,7 @@ class CustomSearchBar extends StatelessWidget {
 
         if (onFilterTap != null) ...[
           const SizedBox(width: 12),
-          // Filter Button
+          
           InkWell(
             onTap: onFilterTap,
             borderRadius: BorderRadius.circular(16),

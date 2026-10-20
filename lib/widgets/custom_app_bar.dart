@@ -3,9 +3,9 @@ import '../utils/app_colors.dart';
 import '../utils/app_text_styles.dart';
 
 enum AppBarType {
-  home,    // Brand logo, notification bell with badge, avatar
-  inner,   // Back arrow circle button, title, options circle button
-  simple,  // Back arrow and title only
+  home,    
+  inner,   
+  simple,  
 }
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -42,11 +42,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     );
   }
 
-  // Home Screen App Bar (Qent logo, bell badge, avatar)
   Widget _buildHomeAppBar(BuildContext context) {
     return Row(
       children: [
-        // Qent Logo with Car Icon
+        
         Container(
           width: 38,
           height: 38,
@@ -72,7 +71,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
         const Spacer(),
 
-        // Notification Bell with Badge
         GestureDetector(
           onTap: onNotificationTap,
           child: Stack(
@@ -117,7 +115,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
         const SizedBox(width: 12),
 
-        // User Avatar
         GestureDetector(
           onTap: onAvatarTap,
           child: Container(
@@ -140,12 +137,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     );
   }
 
-  // Inner Screen App Bar (Back chevron, Title, Options dots)
   Widget _buildInnerAppBar(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        // Back Button
+        
         GestureDetector(
           onTap: onBackTap ?? () => Navigator.of(context).maybePop(),
           child: Container(
@@ -164,14 +160,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
         ),
 
-        // Title
         if (title != null)
           Text(
             title!,
             style: AppTextStyles.title.copyWith(fontSize: 18),
           ),
 
-        // Trailing options button or custom actions
         if (actions != null && actions!.isNotEmpty)
           Row(children: actions!)
         else if (type == AppBarType.inner)

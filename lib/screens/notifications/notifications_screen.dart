@@ -118,7 +118,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: 10),
-          // Today Header
+          
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -134,7 +134,6 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
           ),
           const SizedBox(height: 14),
 
-          // Notifications using NotificationTile widget
           const NotificationTile(
             icon: Icons.verified_outlined,
             title: 'Car Booking Successful',
@@ -158,7 +157,6 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
           ),
           const SizedBox(height: 20),
 
-          // Previous Header
           Text(
             'Previous',
             style: AppTextStyles.titleSmall.copyWith(fontWeight: FontWeight.w700),

@@ -55,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Custom Home App Bar
+              
               CustomAppBar(
                 type: AppBarType.home,
                 notificationCount: 2,
@@ -64,7 +64,6 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               const SizedBox(height: 16),
 
-              // Search Row with Filter
               CustomSearchBar(
                 readOnly: true,
                 onTap: widget.onSearchTap,
@@ -72,11 +71,9 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               const SizedBox(height: 24),
 
-              // Brands Section Header
               const SectionHeader(title: 'Brands'),
               const SizedBox(height: 14),
 
-              // Brands List
               SizedBox(
                 height: 95,
                 child: ListView.separated(
@@ -97,7 +94,6 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               const SizedBox(height: 24),
 
-              // Best Cars Section Header
               SectionHeader(
                 title: 'Best Cars',
                 subtitle: 'Available',
@@ -106,7 +102,6 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               const SizedBox(height: 14),
 
-              // Best Cars Horizontal List
               SizedBox(
                 height: 240,
                 child: ListView.separated(
@@ -130,7 +125,6 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               const SizedBox(height: 24),
 
-              // Nearby Section Header
               SectionHeader(
                 title: 'Nearby',
                 actionText: 'View All',
@@ -138,7 +132,6 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               const SizedBox(height: 14),
 
-              // Nearby Horizontal Banner Card
               CarBannerCard(
                 car: mockNearbyCars.first,
                 onTap: () => _onCarTapped(mockNearbyCars.first),

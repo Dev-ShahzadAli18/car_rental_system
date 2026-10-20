@@ -94,7 +94,7 @@ class _SearchScreenState extends State<SearchScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 10),
-            // Search Input with Filter Button
+            
             CustomSearchBar(
               controller: _searchController,
               onChanged: _filterCars,
@@ -102,7 +102,6 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
             const SizedBox(height: 18),
 
-            // Horizontal Brand Pills
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               clipBehavior: Clip.none,
@@ -122,14 +121,12 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
             const SizedBox(height: 24),
 
-            // Recommend For You Section Header
             const SectionHeader(
               title: 'Recommend For You',
               actionText: 'View All',
             ),
             const SizedBox(height: 14),
 
-            // 2x2 Grid of Car Cards
             GridView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
@@ -157,14 +154,12 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
             const SizedBox(height: 24),
 
-            // Our Popular Cars Section Header
             const SectionHeader(
               title: 'Our Popular Cars',
               actionText: 'View All',
             ),
             const SizedBox(height: 14),
 
-            // Popular Cars Horizontal List
             SizedBox(
               height: 110,
               child: ListView.separated(

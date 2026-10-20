@@ -75,7 +75,6 @@ class _OnboardingPageState extends State<OnboardingPage> {
               ),
             ),
 
-            // Page Indicator
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: onboardingList.asMap().entries.map((entry) {

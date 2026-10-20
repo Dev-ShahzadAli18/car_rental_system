@@ -39,7 +39,7 @@ class _DesignSystemPreviewScreenState extends State<DesignSystemPreviewScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Section 1: Home App Bar
+            
             const SectionHeader(title: '1. Home App Bar Variant'),
             const SizedBox(height: 12),
             Container(
@@ -57,7 +57,6 @@ class _DesignSystemPreviewScreenState extends State<DesignSystemPreviewScreen> {
             ),
             const SizedBox(height: 24),
 
-            // Section 2: Search Bar & Filter
             const SectionHeader(title: '2. Custom Search Bar & Filter Action'),
             const SizedBox(height: 12),
             CustomSearchBar(
@@ -69,7 +68,6 @@ class _DesignSystemPreviewScreenState extends State<DesignSystemPreviewScreen> {
             ),
             const SizedBox(height: 24),
 
-            // Section 3: Brand Category Items
             const SectionHeader(title: '3. Brand Category Circles (Home Screen)'),
             const SizedBox(height: 12),
             SizedBox(
@@ -111,7 +109,6 @@ class _DesignSystemPreviewScreenState extends State<DesignSystemPreviewScreen> {
             ),
             const SizedBox(height: 24),
 
-            // Section 4: Car Cards
             const SectionHeader(title: '4. Car Cards (Best Cars - Home & Search)'),
             const SizedBox(height: 12),
             SingleChildScrollView(
@@ -140,7 +137,6 @@ class _DesignSystemPreviewScreenState extends State<DesignSystemPreviewScreen> {
             ),
             const SizedBox(height: 24),
 
-            // Section 5: Nearby Banner Card
             const SectionHeader(title: '5. Nearby / Popular Cars Banner Card'),
             const SizedBox(height: 12),
             CarBannerCard(
@@ -149,7 +145,6 @@ class _DesignSystemPreviewScreenState extends State<DesignSystemPreviewScreen> {
             ),
             const SizedBox(height: 24),
 
-            // Section 6: Rating Badges
             const SectionHeader(title: '6. Rating Badges'),
             const SizedBox(height: 12),
             const Wrap(
@@ -161,7 +156,6 @@ class _DesignSystemPreviewScreenState extends State<DesignSystemPreviewScreen> {
             ),
             const SizedBox(height: 24),
 
-            // Section 7: Action Buttons
             const SectionHeader(title: '7. Action Buttons'),
             const SizedBox(height: 12),
             CustomElevatedButton(

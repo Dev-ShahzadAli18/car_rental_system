@@ -51,7 +51,7 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Top Car Image Carousel Section
+                
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Stack(
@@ -73,7 +73,6 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                         ),
                       ),
 
-                      // Heart Favorite Button
                       Positioned(
                         top: 10,
                         right: 10,
@@ -110,7 +109,6 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                   ),
                 ),
 
-                // Dots Indicator
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: List.generate(3, (index) {
@@ -129,7 +127,6 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                 ),
                 const SizedBox(height: 20),
 
-                // Details White Container Card
                 Container(
                   width: double.infinity,
                   decoration: const BoxDecoration(
@@ -150,7 +147,7 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Car Name & Rating Row
+                      
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -191,7 +188,6 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                       const Divider(color: AppColors.divider, thickness: 1.2),
                       const SizedBox(height: 16),
 
-                      // Host / Owner Row
                       Row(
                         children: [
                           Container(
@@ -222,13 +218,13 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                               ],
                             ),
                           ),
-                          // Phone Call Action
+                          
                           CircularIconButton(
                             icon: Icons.phone_outlined,
                             onTap: () {},
                           ),
                           const SizedBox(width: 10),
-                          // Chat Message Action
+                          
                           CircularIconButton(
                             icon: Icons.chat_bubble_outline_rounded,
                             onTap: () {
@@ -246,14 +242,12 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                       ),
                       const SizedBox(height: 24),
 
-                      // Car Features Heading
                       Text(
                         'Car features',
                         style: AppTextStyles.titleSmall.copyWith(fontSize: 17),
                       ),
                       const SizedBox(height: 14),
 
-                      // 3x2 Grid of Features using CarFeatureCard
                       GridView.count(
                         crossAxisCount: 3,
                         shrinkWrap: true,
@@ -296,7 +290,6 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                       ),
                       const SizedBox(height: 24),
 
-                      // Review Section
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -315,7 +308,6 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                       ),
                       const SizedBox(height: 14),
 
-                      // Review Cards Carousel using ReviewCard
                       const SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: Row(
@@ -344,7 +336,6 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
             ),
           ),
 
-          // Pinned Bottom Button: "Book Now ->"
           Positioned(
             left: 20,
             right: 20,

@@ -31,10 +31,9 @@ class ProfileScreen extends StatelessWidget {
           children: [
             const SizedBox(height: 10),
 
-            // Profile Info Header Card
             Row(
               children: [
-                // Avatar with Camera Badge
+                
                 Stack(
                   children: [
                     const CircleAvatar(
@@ -64,7 +63,6 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 const SizedBox(width: 16),
 
-                // Name & Email
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -82,7 +80,6 @@ class ProfileScreen extends StatelessWidget {
                   ),
                 ),
 
-                // Edit Profile Icon / Button
                 Column(
                   children: [
                     const Icon(Icons.edit_outlined, size: 18, color: AppColors.textSecondary),
@@ -97,7 +94,6 @@ class ProfileScreen extends StatelessWidget {
             ),
             const SizedBox(height: 28),
 
-            // General Section
             Text(
               'General',
               style: AppTextStyles.titleSmall.copyWith(fontSize: 16),
@@ -125,7 +121,6 @@ class ProfileScreen extends StatelessWidget {
             ),
             const SizedBox(height: 20),
 
-            // Support Section
             Text(
               'Support',
               style: AppTextStyles.titleSmall.copyWith(fontSize: 16),

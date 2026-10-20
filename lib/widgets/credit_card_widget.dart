@@ -37,7 +37,7 @@ class CreditCardWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Mastercard circles & VISA logo
+          
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -81,7 +81,6 @@ class CreditCardWidget extends StatelessWidget {
           ),
           const SizedBox(height: 14),
 
-          // Chip icon
           Container(
             width: 32,
             height: 24,
@@ -92,7 +91,6 @@ class CreditCardWidget extends StatelessWidget {
           ),
           const Spacer(),
 
-          // Cardholder & Expiry
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -114,7 +112,6 @@ class CreditCardWidget extends StatelessWidget {
           ),
           const SizedBox(height: 6),
 
-          // Card Number
           Text(
             cardNumber,
             style: const TextStyle(

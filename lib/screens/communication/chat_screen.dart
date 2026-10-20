@@ -84,7 +84,7 @@ class _ChatScreenState extends State<ChatScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            // Chat App Bar with Call & Video Actions
+            
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: Row(
@@ -108,7 +108,6 @@ class _ChatScreenState extends State<ChatScreen> {
                   ),
                   const SizedBox(width: 12),
 
-                  // Avatar with Online dot
                   Stack(
                     children: [
                       CircleAvatar(
@@ -132,7 +131,6 @@ class _ChatScreenState extends State<ChatScreen> {
                   ),
                   const SizedBox(width: 10),
 
-                  // Contact Name & Status
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -148,12 +146,11 @@ class _ChatScreenState extends State<ChatScreen> {
                   ),
                   const Spacer(),
 
-                  // Video Call Icon
                   IconButton(
                     onPressed: () {},
                     icon: const Icon(Icons.videocam_outlined, color: AppColors.textPrimary, size: 26),
                   ),
-                  // Phone Call Icon
+                  
                   IconButton(
                     onPressed: () {},
                     icon: const Icon(Icons.phone_outlined, color: AppColors.textPrimary, size: 22),
@@ -163,7 +160,6 @@ class _ChatScreenState extends State<ChatScreen> {
             ),
             const Divider(color: AppColors.divider, thickness: 1),
 
-            // Partner Subtitle Header
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8),
               child: Column(
@@ -181,7 +177,6 @@ class _ChatScreenState extends State<ChatScreen> {
               ),
             ),
 
-            // Message Stream using ChatBubble widget
             Expanded(
               child: ListView.builder(
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -195,7 +190,6 @@ class _ChatScreenState extends State<ChatScreen> {
               ),
             ),
 
-            // Typing Indicator
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
               child: Row(
@@ -213,7 +207,6 @@ class _ChatScreenState extends State<ChatScreen> {
               ),
             ),
 
-            // Bottom Input Bar
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
               decoration: const BoxDecoration(

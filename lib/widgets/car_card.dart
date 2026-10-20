@@ -37,7 +37,7 @@ class CarCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Top Image Container with Heart Button
+            
             Stack(
               children: [
                 Container(
@@ -68,7 +68,6 @@ class CarCard extends StatelessWidget {
                   ),
                 ),
 
-                // Floating Favorite Heart
                 Positioned(
                   top: 8,
                   right: 8,
@@ -98,13 +97,12 @@ class CarCard extends StatelessWidget {
               ],
             ),
 
-            // Bottom Details
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Title
+                  
                   Text(
                     car.name,
                     maxLines: 1,
@@ -113,7 +111,6 @@ class CarCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
 
-                  // Rating Row
                   Row(
                     children: [
                       Text(
@@ -133,7 +130,6 @@ class CarCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 6),
 
-                  // Location Row
                   Row(
                     children: [
                       const Icon(
@@ -156,7 +152,6 @@ class CarCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 10),
 
-                  // Specs & Price / Action
                   if (!showBookNowButton) ...[
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
