@@ -1,30 +1,39 @@
+import 'package:flutter/material.dart';
+
 class OnboardingItem {
   final String image;
   final String title;
   final String description;
+  final IconData fallbackIcon;
 
   OnboardingItem({
     required this.image,
     required this.title,
     required this.description,
+    this.fallbackIcon = Icons.directions_car_filled_rounded,
   });
 }
+
 List<OnboardingItem> onboardingList = [
   OnboardingItem(
-    image: 'assets/images/car1.png',
+    image: 'https://purepng.com/public/uploads/large/purepng.com-white-ferrari-carcarferrarivehicletransport-961524653637e1uha.png',
     title: 'Find Your Dream Car',
     description:
-        'Choose from a wide range of premium and comfortable cars for your journey.',
+        'Choose from a wide range of premium, high-performance, and luxury cars for your journey.',
+    fallbackIcon: Icons.directions_car_filled_rounded,
   ),
   OnboardingItem(
-    image: 'assets/images/car2.png',
+    image: 'https://pngimg.com/d/tesla_car_PNG23.png',
     title: 'Book With Ease',
     description:
-        'Select your favorite car and book your ride in just a few taps.',
+        'Select your favorite car, choose rental dates, and complete your booking in just a few taps.',
+    fallbackIcon: Icons.electric_car_rounded,
   ),
   OnboardingItem(
-    image: 'assets/images/car3.png',
+    image: 'https://pngimg.com/d/lamborghini_PNG102905.png',
     title: 'Start Your Journey',
-    description: 'Pick up your car and enjoy a smooth and comfortable journey.',
+    description:
+        'Pick up your car smoothly and enjoy an extraordinary, comfortable, and reliable driving experience.',
+    fallbackIcon: Icons.speed_rounded,
   ),
 ];

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../utils/app_colors.dart';
 
 class CustomElevatedButton extends StatelessWidget {
   final String? text;
@@ -86,9 +87,9 @@ class CustomElevatedButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: loading ? null : onTap,
         style: ElevatedButton.styleFrom(
-          backgroundColor: backgroundColor ?? const Color(0xffffc107),
-          foregroundColor: foregroundColor ?? Colors.black,
-          disabledBackgroundColor: disabledColor ?? Colors.grey.shade700,
+          backgroundColor: backgroundColor ?? AppColors.primaryDark,
+          foregroundColor: foregroundColor ?? Colors.white,
+          disabledBackgroundColor: disabledColor ?? Colors.grey.shade400,
           elevation: elevation,
           padding:
               padding ??
@@ -197,7 +198,7 @@ class CustomTextButton extends StatelessWidget {
     final textWidget = Text(
       text,
       style: TextStyle(
-        color: textColor ?? const Color(0xffffc107),
+        color: textColor ?? AppColors.primaryDark,
         fontSize: fontSize,
         fontWeight: fontWeight,
       ),
@@ -315,7 +316,7 @@ class CustomTabButton extends StatelessWidget {
           padding: padding ?? const EdgeInsets.symmetric(vertical: 13),
           decoration: BoxDecoration(
             color: selected
-                ? selectedColor ?? const Color(0xffffc107)
+                ? selectedColor ?? AppColors.primaryDark
                 : Colors.transparent,
             borderRadius: BorderRadius.circular(radius!),
           ),
@@ -324,8 +325,8 @@ class CustomTabButton extends StatelessWidget {
             textAlign: TextAlign.center,
             style: TextStyle(
               color: selected
-                  ? selectedTextColor ?? Colors.black
-                  : textColor ?? Colors.grey,
+                  ? selectedTextColor ?? Colors.white
+                  : textColor ?? AppColors.textSecondary,
               fontWeight: FontWeight.bold,
             ),
           ),

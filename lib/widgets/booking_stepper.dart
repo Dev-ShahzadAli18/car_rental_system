@@ -14,39 +14,49 @@ class BookingStepper extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            _buildStepIndicator(0),
-            _buildConnectingLine(currentStep >= 1),
-            _buildStepIndicator(1),
-            _buildConnectingLine(currentStep >= 2),
-            _buildStepIndicator(2),
-          ],
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Row(
+            children: [
+              _buildStepIndicator(0),
+              _buildConnectingLine(currentStep >= 1),
+              _buildStepIndicator(1),
+              _buildConnectingLine(currentStep >= 2),
+              _buildStepIndicator(2),
+            ],
+          ),
         ),
         const SizedBox(height: 8),
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              'Booking details',
-              style: AppTextStyles.caption.copyWith(
-                fontWeight: currentStep == 0 ? FontWeight.w700 : FontWeight.w500,
-                color: currentStep >= 0 ? AppColors.textPrimary : AppColors.textSecondary,
+            Expanded(
+              child: Text(
+                'Booking details',
+                textAlign: TextAlign.left,
+                style: AppTextStyles.caption.copyWith(
+                  fontWeight: currentStep == 0 ? FontWeight.w700 : FontWeight.w500,
+                  color: currentStep >= 0 ? AppColors.textPrimary : AppColors.textSecondary,
+                ),
               ),
             ),
-            Text(
-              'Payment methods',
-              style: AppTextStyles.caption.copyWith(
-                fontWeight: currentStep == 1 ? FontWeight.w700 : FontWeight.w500,
-                color: currentStep >= 1 ? AppColors.textPrimary : AppColors.textSecondary,
+            Expanded(
+              child: Text(
+                'Payment methods',
+                textAlign: TextAlign.center,
+                style: AppTextStyles.caption.copyWith(
+                  fontWeight: currentStep == 1 ? FontWeight.w700 : FontWeight.w500,
+                  color: currentStep >= 1 ? AppColors.textPrimary : AppColors.textSecondary,
+                ),
               ),
             ),
-            Text(
-              'confirmation',
-              style: AppTextStyles.caption.copyWith(
-                fontWeight: currentStep == 2 ? FontWeight.w700 : FontWeight.w500,
-                color: currentStep >= 2 ? AppColors.textPrimary : AppColors.textSecondary,
+            Expanded(
+              child: Text(
+                'confirmation',
+                textAlign: TextAlign.right,
+                style: AppTextStyles.caption.copyWith(
+                  fontWeight: currentStep == 2 ? FontWeight.w700 : FontWeight.w500,
+                  color: currentStep >= 2 ? AppColors.textPrimary : AppColors.textSecondary,
+                ),
               ),
             ),
           ],
@@ -94,10 +104,11 @@ class BookingStepper extends StatelessWidget {
   }
 
   Widget _buildConnectingLine(bool isFilled) {
-    return Container(
-      width: 90,
-      height: 2.5,
-      color: isFilled ? AppColors.primaryDark : const Color(0xFFD3D6DC),
+    return Expanded(
+      child: Container(
+        height: 2.5,
+        color: isFilled ? AppColors.primaryDark : const Color(0xFFD3D6DC),
+      ),
     );
   }
 }

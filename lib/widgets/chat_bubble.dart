@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../utils/responsive.dart';
 import '../models/chat_message_model.dart';
 import '../utils/app_colors.dart';
 import '../utils/app_text_styles.dart';
@@ -15,6 +16,8 @@ class ChatBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double maxBubbleWidth = Responsive.isSmallPhone(context) ? 210 : 280;
+
     if (message.isMe) {
       return Padding(
         padding: const EdgeInsets.only(bottom: 14),
@@ -22,7 +25,7 @@ class ChatBubble extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Container(
-              constraints: const BoxConstraints(maxWidth: 280),
+              constraints: BoxConstraints(maxWidth: maxBubbleWidth),
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               decoration: const BoxDecoration(
                 color: Colors.white,
@@ -67,36 +70,38 @@ class ChatBubble extends StatelessWidget {
               backgroundImage: NetworkImage(contactAvatar),
             ),
             const SizedBox(width: 8),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  constraints: const BoxConstraints(maxWidth: 280),
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFF6F7F9),
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(4),
-                      topRight: Radius.circular(18),
-                      bottomLeft: Radius.circular(18),
-                      bottomRight: Radius.circular(18),
+            Flexible(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    constraints: BoxConstraints(maxWidth: maxBubbleWidth),
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFF6F7F9),
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(4),
+                        topRight: Radius.circular(18),
+                        bottomLeft: Radius.circular(18),
+                        bottomRight: Radius.circular(18),
+                      ),
+                      border: Border.all(color: AppColors.cardBorder, width: 1),
                     ),
-                    border: Border.all(color: AppColors.cardBorder, width: 1),
-                  ),
-                  child: Text(
-                    message.text,
-                    style: AppTextStyles.bodySmall.copyWith(
-                      color: AppColors.textPrimary,
-                      height: 1.35,
+                    child: Text(
+                      message.text,
+                      style: AppTextStyles.bodySmall.copyWith(
+                        color: AppColors.textPrimary,
+                        height: 1.35,
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  message.time,
-                  style: AppTextStyles.caption.copyWith(color: AppColors.textMuted, fontSize: 10),
-                ),
-              ],
+                  const SizedBox(height: 4),
+                  Text(
+                    message.time,
+                    style: AppTextStyles.caption.copyWith(color: AppColors.textMuted, fontSize: 10),
+                  ),
+                ],
+              ),
             ),
           ],
         ),

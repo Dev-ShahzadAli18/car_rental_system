@@ -94,14 +94,19 @@ class CreditCardWidget extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                cardholderName,
-                style: AppTextStyles.caption.copyWith(
-                  color: Colors.white70,
-                  fontWeight: FontWeight.w600,
-                  letterSpacing: 1,
+              Expanded(
+                child: Text(
+                  cardholderName,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: AppTextStyles.caption.copyWith(
+                    color: Colors.white70,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 1,
+                  ),
                 ),
               ),
+              const SizedBox(width: 8),
               Text(
                 'Expire: $expiryDate',
                 style: AppTextStyles.caption.copyWith(
@@ -112,13 +117,17 @@ class CreditCardWidget extends StatelessWidget {
           ),
           const SizedBox(height: 6),
 
-          Text(
-            cardNumber,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 17,
-              fontWeight: FontWeight.w700,
-              letterSpacing: 2,
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            alignment: Alignment.centerLeft,
+            child: Text(
+              cardNumber,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 17,
+                fontWeight: FontWeight.w700,
+                letterSpacing: 2,
+              ),
             ),
           ),
         ],

@@ -58,7 +58,9 @@ class AppInputField extends StatelessWidget {
               style: AppTextStyles.body,
               decoration: InputDecoration(
                 hintText: hint,
-                hintStyle: AppTextStyles.subtitle.copyWith(color: AppColors.textMuted),
+                hintStyle: AppTextStyles.subtitle.copyWith(
+                  color: AppColors.textMuted,
+                ),
                 border: InputBorder.none,
                 isDense: true,
               ),

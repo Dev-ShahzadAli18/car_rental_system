@@ -6,10 +6,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -47,5 +44,14 @@ class DefaultFirebaseOptions {
     messagingSenderId: '869707921550',
     projectId: 'car-rental-system-493f2',
     storageBucket: 'car-rental-system-493f2.firebasestorage.app',
+  );
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyDmHVahYeF0XqmoyKTxZi4-HY3fqWXEuok',
+    appId: '1:869707921550:web:bc9a91d0c502d19d9e71df',
+    messagingSenderId: '869707921550',
+    projectId: 'car-rental-system-493f2',
+    authDomain: 'car-rental-system-493f2.firebaseapp.com',
+    storageBucket: 'car-rental-system-493f2.firebasestorage.app',
+    measurementId: 'G-95MWCGZXSB',
   );
 }

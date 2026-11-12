@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../utils/app_colors.dart';
 
 class CustomTextField extends StatelessWidget {
   final TextEditingController? controller;
@@ -82,29 +83,29 @@ class CustomTextField extends StatelessWidget {
       onFieldSubmitted: onSubmitted,
       onTap: onTap,
       validator: validator,
-      style: textStyle ?? const TextStyle(color: Colors.white, fontSize: 15),
+      style: textStyle ?? const TextStyle(color: AppColors.textPrimary, fontSize: 15),
       decoration: InputDecoration(
         hintText: hintText,
         labelText: labelText,
         errorText: errorText,
         helperText: helperText,
-        hintStyle: hintStyle ?? const TextStyle(color: Colors.grey),
+        hintStyle: hintStyle ?? const TextStyle(color: AppColors.textMuted),
         prefixIcon: prefixIcon == null
             ? prefix
-            : Icon(prefixIcon, color: iconColor ?? const Color(0xffffc107)),
+            : Icon(prefixIcon, color: iconColor ?? AppColors.textSecondary),
         suffixIcon: suffixIcon ?? suffix,
         filled: true,
-        fillColor: fillColor ?? const Color(0xff171717),
+        fillColor: fillColor ?? Colors.white,
         contentPadding:
             contentPadding ??
             const EdgeInsets.symmetric(horizontal: 16, vertical: 17),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadius!),
-          borderSide: BorderSide(color: Colors.white.withValues(alpha: .08)),
+          borderSide: const BorderSide(color: AppColors.cardBorder, width: 1.2),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadius!),
-          borderSide: const BorderSide(color: Color(0xffffc107), width: 1.5),
+          borderSide: const BorderSide(color: AppColors.primaryDark, width: 1.5),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadius!),

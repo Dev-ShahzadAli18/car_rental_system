@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
-import 'screens/main_nav_wrapper.dart';
+import 'screens/Auth/splash_screen.dart';
 import 'utils/app_colors.dart';
 
 void main() async {
@@ -29,7 +29,7 @@ class CarRentalApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primaryDark),
         useMaterial3: true,
       ),
-      home: const MainNavWrapper(),
+      home: const SplashScreen(),
     );
   }
 }

@@ -3,7 +3,6 @@ import '../../models/brand_model.dart';
 import '../../models/car_model.dart';
 import '../../utils/app_colors.dart';
 import '../../widgets/brand_item_card.dart';
-import '../../widgets/car_banner_card.dart';
 import '../../widgets/car_card.dart';
 import '../../widgets/custom_app_bar.dart';
 import '../../widgets/custom_bottom_nav_bar.dart';
@@ -139,8 +138,9 @@ class _DesignSystemPreviewScreenState extends State<DesignSystemPreviewScreen> {
 
             const SectionHeader(title: '5. Nearby / Popular Cars Banner Card'),
             const SizedBox(height: 12),
-            CarBannerCard(
+            CarCard(
               car: mockNearbyCars.first,
+              style: CarCardStyle.banner,
               onTap: () {},
             ),
             const SizedBox(height: 24),

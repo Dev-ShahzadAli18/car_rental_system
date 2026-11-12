@@ -2,11 +2,7 @@ import 'package:flutter/material.dart';
 import '../utils/app_colors.dart';
 import '../utils/app_text_styles.dart';
 
-enum AppBarType {
-  home,    
-  inner,   
-  simple,  
-}
+enum AppBarType { home, inner, simple }
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? title;
@@ -35,9 +31,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+      bottom: false,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-        child: type == AppBarType.home ? _buildHomeAppBar(context) : _buildInnerAppBar(context),
+        child: type == AppBarType.home
+            ? _buildHomeAppBar(context)
+            : _buildInnerAppBar(context),
       ),
     );
   }
@@ -45,7 +44,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget _buildHomeAppBar(BuildContext context) {
     return Row(
       children: [
-        
         Container(
           width: 38,
           height: 38,
@@ -141,7 +139,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        
         GestureDetector(
           onTap: onBackTap ?? () => Navigator.of(context).maybePop(),
           child: Container(
@@ -161,10 +158,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
 
         if (title != null)
-          Text(
-            title!,
-            style: AppTextStyles.title.copyWith(fontSize: 18),
-          ),
+          Text(title!, style: AppTextStyles.title.copyWith(fontSize: 18)),
 
         if (actions != null && actions!.isNotEmpty)
           Row(children: actions!)
