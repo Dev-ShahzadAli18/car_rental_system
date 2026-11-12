@@ -38,51 +38,8 @@ class CarModel {
     this.isOwnerVerified = true,
     this.isFavorite = false,
   });
-
-  CarModel copyWith({
-    String? id,
-    String? name,
-    String? brand,
-    String? imageUrl,
-    double? rating,
-    int? reviewsCount,
-    String? location,
-    int? seats,
-    double? pricePerDay,
-    String? engineOutput,
-    String? maxSpeed,
-    String? singleChargeOrFuel,
-    String? autopilotType,
-    String? description,
-    String? ownerName,
-    String? ownerAvatar,
-    bool? isOwnerVerified,
-    bool? isFavorite,
-  }) {
-    return CarModel(
-      id: id ?? this.id,
-      name: name ?? this.name,
-      brand: brand ?? this.brand,
-      imageUrl: imageUrl ?? this.imageUrl,
-      rating: rating ?? this.rating,
-      reviewsCount: reviewsCount ?? this.reviewsCount,
-      location: location ?? this.location,
-      seats: seats ?? this.seats,
-      pricePerDay: pricePerDay ?? this.pricePerDay,
-      engineOutput: engineOutput ?? this.engineOutput,
-      maxSpeed: maxSpeed ?? this.maxSpeed,
-      singleChargeOrFuel: singleChargeOrFuel ?? this.singleChargeOrFuel,
-      autopilotType: autopilotType ?? this.autopilotType,
-      description: description ?? this.description,
-      ownerName: ownerName ?? this.ownerName,
-      ownerAvatar: ownerAvatar ?? this.ownerAvatar,
-      isOwnerVerified: isOwnerVerified ?? this.isOwnerVerified,
-      isFavorite: isFavorite ?? this.isFavorite,
-    );
-  }
 }
 
-// Curated mock data matching the exact cars shown in the Figma screens
 final List<CarModel> mockBestCars = [
   CarModel(
     id: 'c1',

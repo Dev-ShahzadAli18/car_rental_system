@@ -1,7 +1,10 @@
-import 'package:car_rental_system/widgets/custom_button.dart';
-import 'package:car_rental_system/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import '../../services/auth_service.dart';
+import '../../utils/app_colors.dart';
+import '../../utils/app_text_styles.dart';
+import '../../utils/responsive.dart';
+import '../../widgets/app_input_field.dart';
+import '../../widgets/custom_button.dart';
 import '../main_nav_wrapper.dart';
 
 class LoginPage extends StatefulWidget {
@@ -24,51 +27,74 @@ class _LoginPageState extends State<LoginPage> {
   final password = TextEditingController();
   final confirmPassword = TextEditingController();
 
-  Future auth() async {
-    if (email.text.isEmpty || password.text.isEmpty) {
-      message("Please fill all required fields");
-      return;
+  @override
+  void dispose() {
+    name.dispose();
+    email.dispose();
+    phone.dispose();
+    password.dispose();
+    confirmPassword.dispose();
+    super.dispose();
+  }
+
+  bool _inputsAreValid() {
+    if (email.text.trim().isEmpty || password.text.trim().isEmpty) {
+      showMessage("Please fill all required fields");
+      return false;
     }
 
-    if (!isLogin && name.text.isEmpty) {
-      message("Please enter your name");
-      return;
+    if (isLogin) {
+      return true;
     }
 
-    if (!isLogin && password.text != confirmPassword.text) {
-      message("Passwords do not match");
-      return;
+    if (name.text.trim().isEmpty) {
+      showMessage("Please enter your name");
+      return false;
     }
 
-    if (!isLogin && !terms) {
-      message("Please accept Terms & Conditions");
+    if (password.text != confirmPassword.text) {
+      showMessage("Passwords do not match");
+      return false;
+    }
+
+    if (!terms) {
+      showMessage("Please accept Terms & Conditions");
+      return false;
+    }
+
+    return true;
+  }
+
+  Future<void> signInOrSignUp() async {
+    if (!_inputsAreValid()) {
       return;
     }
 
     setState(() => loading = true);
 
-    try {
-      if (isLogin) {
-        await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: email.text.trim(),
-          password: password.text.trim(),
-        );
-      } else {
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: email.text.trim(),
-          password: password.text.trim(),
-        );
+    String? errorMessage;
+    if (isLogin) {
+      errorMessage = await AuthService.signIn(
+        email: email.text.trim(),
+        password: password.text.trim(),
+      );
+    } else {
+      errorMessage = await AuthService.signUp(
+        email: email.text.trim(),
+        password: password.text.trim(),
+      );
+      if (errorMessage == null) {
+        showMessage("Account created successfully");
+      }
+    }
 
-        message("Account created successfully");
-      }
-      if (mounted) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const MainNavWrapper()),
-        );
-      }
-    } on FirebaseAuthException catch (e) {
-      message(e.message ?? "Something went wrong");
+    if (errorMessage != null) {
+      showMessage(errorMessage);
+    } else if (mounted) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const MainNavWrapper()),
+      );
     }
 
     if (mounted) {
@@ -76,236 +102,348 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  void message(String text) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(text)));
+  void showMessage(String text) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(text),
+        backgroundColor: AppColors.primaryDark,
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xff080808),
+      backgroundColor: AppColors.background,
       body: SafeArea(
-        child: SingleChildScrollView(
-          padding: EdgeInsets.all(22),
-          child: Column(
-            children: [
-              SizedBox(height: 25),
-              Container(
-                height: 75,
-                width: 75,
-                decoration: BoxDecoration(
-                  color: Color(0xffffc107),
-                  borderRadius: BorderRadius.circular(24),
-                ),
-                child: Icon(
-                  Icons.directions_car_filled_rounded,
-                  size: 42,
-                  color: Colors.black,
-                ),
-              ),
-              SizedBox(height: 18),
-              Text(
-                isLogin ? "Welcome Back!" : "Create Account",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 7),
-              Text(
-                isLogin
-                    ? "Login and start your journey"
-                    : "Join us and rent your dream car",
-                style: TextStyle(color: Colors.grey),
-              ),
-              SizedBox(height: 30),
-              Container(
-                padding: EdgeInsets.all(5),
-                decoration: BoxDecoration(
-                  color: Color(0xff171717),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: Row(
-                  children: [
-                    CustomTabButton(
-                      text: "Login",
-                      selected: isLogin,
-                      onTap: () {
-                        setState(() {
-                          isLogin = true;
-                        });
-                      },
-                    ),
-                    CustomTabButton(
-                      text: "Sign Up",
-                      selected: !isLogin,
-                      onTap: () {
-                        setState(() {
-                          isLogin = false;
-                        });
-                      },
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 25),
-              if (!isLogin)
-                CustomTextField(
-                  controller: name,
-                  hintText: "Full Name",
-                  prefixIcon: Icons.person_outline,
-                ),
-              if (!isLogin) SizedBox(height: 14),
-              CustomTextField(
-                controller: email,
-                hintText: "Email Address",
-                prefixIcon: Icons.email_outlined,
-                keyboardType: TextInputType.emailAddress,
-              ),
-              if (!isLogin) SizedBox(height: 14),
-              if (!isLogin)
-                CustomTextField(
-                  controller: phone,
-                  hintText: "Phone Number",
-                  prefixIcon: Icons.phone_outlined,
-                  keyboardType: TextInputType.phone,
-                ),
+        child: ResponsiveContentWrapper(
+          maxWidth: Responsive.maxFormWidth,
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+            child: Column(
+              children: [
+                const SizedBox(height: 16),
 
-              SizedBox(height: 14),
-
-              CustomTextField(
-                controller: password,
-                hintText: "Password",
-                prefixIcon: Icons.lock_outline,
-                obscureText: hidePassword,
-                suffixIcon: CustomIconButton(
-                  icon: hidePassword ? Icons.visibility_off : Icons.visibility,
-                  iconColor: Colors.grey,
-                  size: 40,
-                  iconSize: 20,
-                  onTap: () {
-                    setState(() {
-                      hidePassword = !hidePassword;
-                    });
-                  },
+                // Branded App Logo
+                Container(
+                  height: 76,
+                  width: 76,
+                  decoration: BoxDecoration(
+                    color: AppColors.primaryDark,
+                    borderRadius: BorderRadius.circular(24),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.1),
+                        blurRadius: 16,
+                        offset: const Offset(0, 6),
+                      ),
+                    ],
+                  ),
+                  child: const Center(
+                    child: Icon(
+                      Icons.directions_car_filled_rounded,
+                      size: 40,
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
-              ),
-              if (!isLogin) SizedBox(height: 14),
-              if (!isLogin)
-                CustomTextField(
-                  controller: confirmPassword,
-                  hintText: "Confirm Password",
-                  prefixIcon: Icons.lock_outline,
-                  obscureText: hideConfirm,
-                  suffixIcon: CustomIconButton(
-                    icon: hideConfirm ? Icons.visibility_off : Icons.visibility,
-                    iconColor: Colors.grey,
-                    size: 40,
-                    iconSize: 20,
+                const SizedBox(height: 20),
+
+                // Heading & Subtitle
+                Text(
+                  isLogin ? "Welcome Back!" : "Create Account",
+                  style: AppTextStyles.headingMedium.copyWith(
+                    fontSize: 28,
+                    fontWeight: FontWeight.w800,
+                    color: AppColors.textPrimary,
+                  ),
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  isLogin
+                      ? "Login and start your journey"
+                      : "Join us and rent your dream car",
+                  style: AppTextStyles.subtitle.copyWith(
+                    color: AppColors.textSecondary,
+                  ),
+                ),
+                const SizedBox(height: 26),
+
+                // Modern Segmented Tab Switcher
+                Container(
+                  padding: const EdgeInsets.all(4),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFEFF1F4),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Row(
+                    children: [
+                      CustomTabButton(
+                        text: "Login",
+                        selected: isLogin,
+                        selectedColor: AppColors.primaryDark,
+                        selectedTextColor: Colors.white,
+                        textColor: AppColors.textSecondary,
+                        radius: 12,
+                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        onTap: () {
+                          setState(() {
+                            isLogin = true;
+                          });
+                        },
+                      ),
+                      CustomTabButton(
+                        text: "Sign Up",
+                        selected: !isLogin,
+                        selectedColor: AppColors.primaryDark,
+                        selectedTextColor: Colors.white,
+                        textColor: AppColors.textSecondary,
+                        radius: 12,
+                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        onTap: () {
+                          setState(() {
+                            isLogin = false;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 22),
+
+                // Form Fields
+                if (!isLogin) ...[
+                  AppInputField(
+                    controller: name,
+                    hint: "Full Name",
+                    prefixIcon: Icons.person_outline_rounded,
+                  ),
+                  const SizedBox(height: 14),
+                ],
+
+                AppInputField(
+                  controller: email,
+                  hint: "Email Address",
+                  prefixIcon: Icons.email_outlined,
+                  keyboardType: TextInputType.emailAddress,
+                ),
+                const SizedBox(height: 14),
+
+                if (!isLogin) ...[
+                  AppInputField(
+                    controller: phone,
+                    hint: "Phone Number",
+                    prefixIcon: Icons.phone_outlined,
+                    keyboardType: TextInputType.phone,
+                  ),
+                  const SizedBox(height: 14),
+                ],
+
+                AppInputField(
+                  controller: password,
+                  hint: "Password",
+                  prefixIcon: Icons.lock_outline_rounded,
+                  obscureText: hidePassword,
+                  suffixWidget: GestureDetector(
                     onTap: () {
                       setState(() {
-                        hideConfirm = !hideConfirm;
+                        hidePassword = !hidePassword;
                       });
                     },
+                    child: Icon(
+                      hidePassword
+                          ? Icons.visibility_off_outlined
+                          : Icons.visibility_outlined,
+                      color: AppColors.textSecondary,
+                      size: 20,
+                    ),
                   ),
                 ),
-              if (isLogin)
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: CustomTextButton(
-                    text: "Forgot Password?",
-                    textColor: Color(0xffffc107),
-                    onTap: () {
-                      message("Forgot password clicked");
-                    },
-                  ),
-                ),
-              if (!isLogin)
-                Row(
-                  children: [
-                    Checkbox(
-                      value: terms,
-                      activeColor: Color(0xffffc107),
-                      onChanged: (value) {
+
+                if (!isLogin) ...[
+                  const SizedBox(height: 14),
+                  AppInputField(
+                    controller: confirmPassword,
+                    hint: "Confirm Password",
+                    prefixIcon: Icons.lock_outline_rounded,
+                    obscureText: hideConfirm,
+                    suffixWidget: GestureDetector(
+                      onTap: () {
                         setState(() {
-                          terms = value ?? false;
+                          hideConfirm = !hideConfirm;
                         });
                       },
+                      child: Icon(
+                        hideConfirm
+                            ? Icons.visibility_off_outlined
+                            : Icons.visibility_outlined,
+                        color: AppColors.textSecondary,
+                        size: 20,
+                      ),
                     ),
-                    Expanded(
+                  ),
+                ],
+
+                const SizedBox(height: 12),
+
+                // Forgot Password link (Login mode)
+                if (isLogin)
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: GestureDetector(
+                      onTap: () {
+                        showMessage("Reset password link sent to your email");
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 4),
+                        child: Text(
+                          "Forgot Password?",
+                          style: AppTextStyles.bodySmall.copyWith(
+                            color: AppColors.primaryDark,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+
+                // Terms & Conditions checkbox (Sign Up mode)
+                if (!isLogin)
+                  Row(
+                    children: [
+                      Checkbox(
+                        value: terms,
+                        activeColor: AppColors.primaryDark,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        onChanged: (value) {
+                          setState(() {
+                            terms = value ?? false;
+                          });
+                        },
+                      ),
+                      Expanded(
+                        child: Text(
+                          "I agree to the Terms & Conditions",
+                          style: AppTextStyles.bodySmall.copyWith(
+                            color: AppColors.textSecondary,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                const SizedBox(height: 20),
+
+                // Primary Submit Button
+                CustomElevatedButton(
+                  text: isLogin ? "LOGIN" : "CREATE ACCOUNT",
+                  onTap: loading ? null : signInOrSignUp,
+                  loading: loading,
+                  backgroundColor: AppColors.primaryDark,
+                  foregroundColor: Colors.white,
+                  width: double.infinity,
+                  height: 54,
+                  radius: 27,
+                ),
+                const SizedBox(height: 20),
+
+                // Divider ("OR")
+                Row(
+                  children: [
+                    const Expanded(child: Divider(color: AppColors.cardBorder, thickness: 1)),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 14),
                       child: Text(
-                        "I agree to the Terms & Conditions",
-                        style: TextStyle(color: Colors.grey),
+                        "OR",
+                        style: AppTextStyles.caption.copyWith(
+                          color: AppColors.textMuted,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                    const Expanded(child: Divider(color: AppColors.cardBorder, thickness: 1)),
+                  ],
+                ),
+                const SizedBox(height: 20),
+
+                // Continue with Google Button
+                CustomOutlinedButton(
+                  text: "Continue with Google",
+                  icon: Icons.g_mobiledata_rounded,
+                  onTap: () {
+                    showMessage("Google sign in is currently in demo mode");
+                  },
+                  width: double.infinity,
+                  height: 52,
+                  radius: 26,
+                  backgroundColor: Colors.white,
+                  borderColor: AppColors.cardBorder,
+                  foregroundColor: AppColors.textPrimary,
+                  textStyle: AppTextStyles.body.copyWith(
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.textPrimary,
+                  ),
+                ),
+                const SizedBox(height: 24),
+
+                // Switch Mode Prompt
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      isLogin
+                          ? "Don't have an account? "
+                          : "Already have an account? ",
+                      style: AppTextStyles.bodySmall.copyWith(
+                        color: AppColors.textSecondary,
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          isLogin = !isLogin;
+                        });
+                      },
+                      child: Text(
+                        isLogin ? "Sign Up" : "Login",
+                        style: AppTextStyles.bodySmall.copyWith(
+                          color: AppColors.primaryDark,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
                   ],
                 ),
-              SizedBox(height: 10),
-              CustomElevatedButton(
-                text: isLogin ? "LOGIN" : "CREATE ACCOUNT",
-                onTap: loading ? null : auth,
-                loading: loading,
-                width: double.infinity,
-                height: 55,
-                radius: 15,
-              ),
-              SizedBox(height: 20),
-              Row(
-                children: [
-                  Expanded(child: Divider(color: Colors.grey)),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 12),
-                    child: Text("OR", style: TextStyle(color: Colors.grey)),
+                const SizedBox(height: 14),
+
+                // Explore App (Skip)
+                TextButton.icon(
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => const MainNavWrapper()),
+                    );
+                  },
+                  icon: const Icon(
+                    Icons.explore_outlined,
+                    color: AppColors.textSecondary,
+                    size: 18,
                   ),
-                  Expanded(child: Divider(color: Colors.grey)),
-                ],
-              ),
-              SizedBox(height: 18),
-              CustomOutlinedButton(
-                text: "Continue with Google",
-                icon: Icons.g_mobiledata,
-                onTap: () {
-                  message("Google login clicked");
-                },
-                width: double.infinity,
-                height: 52,
-                radius: 14,
-                borderColor: Colors.grey.shade800,
-                foregroundColor: Colors.white,
-                textStyle: TextStyle(
-                  color: Colors.white,
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500,
+                  label: Text(
+                    'Explore App (Skip)',
+                    style: AppTextStyles.caption.copyWith(
+                      color: AppColors.textSecondary,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ),
-              ),
-              SizedBox(height: 20),
-              CustomTextButton(
-                text: isLogin
-                    ? "Don't have an account? Sign Up"
-                    : "Already have an account? Login",
-                textColor: Color(0xffffc107),
-                onTap: () {
-                  setState(() {
-                    isLogin = !isLogin;
-                  });
-                },
-              ),
-              const SizedBox(height: 12),
-              TextButton.icon(
-                onPressed: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => const MainNavWrapper()),
-                  );
-                },
-                icon: const Icon(Icons.explore_outlined, color: Colors.white70, size: 18),
-                label: const Text(
-                  'Explore App (Skip)',
-                  style: TextStyle(color: Colors.white70, fontSize: 13),
-                ),
-              ),
-            ],
+                const SizedBox(height: 16),
+              ],
+            ),
           ),
         ),
       ),

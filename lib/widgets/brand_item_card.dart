@@ -4,8 +4,8 @@ import '../utils/app_colors.dart';
 import '../utils/app_text_styles.dart';
 
 enum BrandCardStyle {
-  circle, // Home screen circle icon with label below
-  pill,   // Search screen pill button
+  circle, 
+  pill,   
 }
 
 class BrandItemCard extends StatelessWidget {
@@ -30,40 +30,49 @@ class BrandItemCard extends StatelessWidget {
     return _buildCircleVariant();
   }
 
-  // Home Screen Circle Variant
   Widget _buildCircleVariant() {
     return GestureDetector(
       onTap: onTap,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Container(
+          AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            curve: Curves.easeInOut,
             width: 64,
             height: 64,
             decoration: BoxDecoration(
-              color: isSelected ? AppColors.primaryDark : AppColors.primaryDark,
+              color: isSelected ? AppColors.primaryDark : Colors.white,
               shape: BoxShape.circle,
+              border: Border.all(
+                color: isSelected ? AppColors.primaryDark : AppColors.cardBorder,
+                width: 1.5,
+              ),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.12),
-                  blurRadius: 10,
-                  offset: const Offset(0, 4),
+                  color: isSelected
+                      ? AppColors.primaryDark.withValues(alpha: 0.25)
+                      : Colors.black.withValues(alpha: 0.05),
+                  blurRadius: isSelected ? 10 : 8,
+                  offset: isSelected ? const Offset(0, 4) : const Offset(0, 2),
                 ),
               ],
             ),
             child: Center(
               child: Icon(
                 brand.fallbackIcon ?? Icons.directions_car,
-                color: Colors.white,
-                size: 30,
+                color: isSelected ? Colors.white : AppColors.primaryDark,
+                size: 28,
               ),
             ),
           ),
           const SizedBox(height: 8),
           Text(
             brand.name,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
             style: AppTextStyles.bodySmall.copyWith(
-              fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+              fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
               color: isSelected ? AppColors.textPrimary : AppColors.textSecondary,
             ),
           ),
@@ -72,7 +81,6 @@ class BrandItemCard extends StatelessWidget {
     );
   }
 
-  // Search Screen Pill Variant
   Widget _buildPillVariant() {
     return GestureDetector(
       onTap: onTap,

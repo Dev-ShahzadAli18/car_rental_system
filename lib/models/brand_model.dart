@@ -32,7 +32,6 @@ class BrandModel {
   }
 }
 
-// Curated brands list from Figma screens
 const List<BrandModel> mockBrands = [
   BrandModel(
     id: 'all',

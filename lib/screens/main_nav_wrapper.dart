@@ -58,6 +58,7 @@ class _MainNavWrapperState extends State<MainNavWrapper> {
 
     return Scaffold(
       extendBody: true,
+      resizeToAvoidBottomInset: false,
       body: IndexedStack(
         index: _currentIndex,
         children: pages,

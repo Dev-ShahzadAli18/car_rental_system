@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'app_colors.dart';
 
 class AppTextStyles {
-  // Headings
+  
   static TextStyle get headingLarge => GoogleFonts.plusJakartaSans(
         fontSize: 28,
         fontWeight: FontWeight.w700,
@@ -30,7 +30,6 @@ class AppTextStyles {
         color: AppColors.textPrimary,
       );
 
-  // Subtitles & Body
   static TextStyle get subtitle => GoogleFonts.plusJakartaSans(
         fontSize: 14,
         fontWeight: FontWeight.w400,
@@ -55,7 +54,6 @@ class AppTextStyles {
         color: AppColors.textMuted,
       );
 
-  // Buttons & Badges
   static TextStyle get button => GoogleFonts.plusJakartaSans(
         fontSize: 16,
         fontWeight: FontWeight.w600,
@@ -74,6 +72,5 @@ class AppTextStyles {
         color: AppColors.textPrimary,
       );
 
-  // Legacy mappings for backward compatibility
   static TextStyle get heading => headingLarge;
 }

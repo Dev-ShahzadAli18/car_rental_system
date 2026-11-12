@@ -4,7 +4,7 @@ class NotificationModel {
   final String message;
   final String time;
   final bool isRead;
-  final String type; // booking, promo, reminder, alert
+  final String type; 
 
   const NotificationModel({
     required this.id,

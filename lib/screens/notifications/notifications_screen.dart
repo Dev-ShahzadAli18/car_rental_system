@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../utils/responsive.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/app_text_styles.dart';
 import '../../widgets/custom_app_bar.dart';
@@ -112,82 +113,82 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
   }
 
   Widget _buildNotificationList() {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(height: 10),
-          // Today Header
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Today',
-                style: AppTextStyles.titleSmall.copyWith(fontWeight: FontWeight.w700),
-              ),
-              Text(
-                '2 Unread Notification',
-                style: AppTextStyles.caption.copyWith(color: AppColors.textSecondary),
-              ),
-            ],
-          ),
-          const SizedBox(height: 14),
+    return ResponsiveContentWrapper(
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 10),
+            
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Today',
+                  style: AppTextStyles.titleSmall.copyWith(fontWeight: FontWeight.w700),
+                ),
+                Text(
+                  '2 Unread Notification',
+                  style: AppTextStyles.caption.copyWith(color: AppColors.textSecondary),
+                ),
+              ],
+            ),
+            const SizedBox(height: 14),
 
-          // Notifications using NotificationTile widget
-          const NotificationTile(
-            icon: Icons.verified_outlined,
-            title: 'Car Booking Successful',
-            description: 'Your car is ready! Check your email for the booking and pickup instructions. Safe travels!',
-            time: '10:00 am',
-            isUnread: true,
-          ),
-          const NotificationTile(
-            icon: Icons.receipt_long_outlined,
-            title: 'Payment Notification',
-            description: 'Your payment was processed successfully! Enjoy your ride.',
-            time: '10:00 am',
-            isUnread: true,
-          ),
-          const NotificationTile(
-            icon: Icons.access_time_rounded,
-            title: 'Car Pickup/Drop-off time',
-            description: 'Pickup time confirmed! See you at 10:00 AM for your car rental. Drop-off Time Confirmed!',
-            time: '09:00 am',
-            isUnread: false,
-          ),
-          const SizedBox(height: 20),
+            const NotificationTile(
+              icon: Icons.verified_outlined,
+              title: 'Car Booking Successful',
+              description: 'Your car is ready! Check your email for the booking and pickup instructions. Safe travels!',
+              time: '10:00 am',
+              isUnread: true,
+            ),
+            const NotificationTile(
+              icon: Icons.receipt_long_outlined,
+              title: 'Payment Notification',
+              description: 'Your payment was processed successfully! Enjoy your ride.',
+              time: '10:00 am',
+              isUnread: true,
+            ),
+            const NotificationTile(
+              icon: Icons.access_time_rounded,
+              title: 'Car Pickup/Drop-off time',
+              description: 'Pickup time confirmed! See you at 10:00 AM for your car rental. Drop-off Time Confirmed!',
+              time: '09:00 am',
+              isUnread: false,
+            ),
+            const SizedBox(height: 20),
 
-          // Previous Header
-          Text(
-            'Previous',
-            style: AppTextStyles.titleSmall.copyWith(fontWeight: FontWeight.w700),
-          ),
-          const SizedBox(height: 14),
+            Text(
+              'Previous',
+              style: AppTextStyles.titleSmall.copyWith(fontWeight: FontWeight.w700),
+            ),
+            const SizedBox(height: 14),
 
-          const NotificationTile(
-            icon: Icons.warning_amber_rounded,
-            title: 'Late Return Warning',
-            description: 'Late Return Alert! Please return the car as soon as possible to avoid extra charges.',
-            time: 'Yesterday',
-            isUnread: false,
-          ),
-          const NotificationTile(
-            icon: Icons.cancel_outlined,
-            title: 'Cancellation Notice',
-            description: 'Your Reservation Has Been Canceled or Booking Cancelled Successfully.',
-            time: 'Yesterday',
-            isUnread: false,
-          ),
-          const NotificationTile(
-            icon: Icons.discount_outlined,
-            title: 'Discount Notification',
-            description: 'Congratulations! You\'ve unlocked a 10% discount on your next rental.',
-            time: 'Yesterday',
-            isUnread: false,
-          ),
-          const SizedBox(height: 100),
-        ],
+            const NotificationTile(
+              icon: Icons.warning_amber_rounded,
+              title: 'Late Return Warning',
+              description: 'Late Return Alert! Please return the car as soon as possible to avoid extra charges.',
+              time: 'Yesterday',
+              isUnread: false,
+            ),
+            const NotificationTile(
+              icon: Icons.cancel_outlined,
+              title: 'Cancellation Notice',
+              description: 'Your Reservation Has Been Canceled or Booking Cancelled Successfully.',
+              time: 'Yesterday',
+              isUnread: false,
+            ),
+            const NotificationTile(
+              icon: Icons.discount_outlined,
+              title: 'Discount Notification',
+              description: 'Congratulations! You\'ve unlocked a 10% discount on your next rental.',
+              time: 'Yesterday',
+              isUnread: false,
+            ),
+            const SizedBox(height: 110),
+          ],
+        ),
       ),
     );
   }

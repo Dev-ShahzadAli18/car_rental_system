@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../utils/responsive.dart';
 import '../utils/app_colors.dart';
 import '../utils/app_constants.dart';
 
@@ -14,24 +15,41 @@ class CustomBottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isSmallScreen = Responsive.isSmallPhone(context);
+
     return SafeArea(
-      child: Container(
-        margin: const EdgeInsets.fromLTRB(20, 0, 20, 16),
-        height: 68,
-        decoration: BoxDecoration(
-          color: AppColors.bottomNavBackground,
-          borderRadius: BorderRadius.circular(34),
-          boxShadow: AppConstants.bottomNavShadow,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            _buildNavItem(index: 0, icon: Icons.home_rounded, label: 'Home'),
-            _buildNavItem(index: 1, icon: Icons.search_rounded, label: 'Search'),
-            _buildNavItem(index: 2, icon: Icons.mail_outline_rounded, label: 'Inbox'),
-            _buildNavItem(index: 3, icon: Icons.notifications_none_rounded, label: 'Alerts'),
-            _buildNavItem(index: 4, icon: Icons.person_outline_rounded, label: 'Profile'),
-          ],
+      top: false,
+      left: false,
+      right: false,
+      child: Align(
+        alignment: Alignment.bottomCenter,
+        heightFactor: 1.0,
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: Responsive.maxBottomBarWidth),
+          child: Container(
+            margin: EdgeInsets.fromLTRB(
+              isSmallScreen ? 12 : 20,
+              0,
+              isSmallScreen ? 12 : 20,
+              16,
+            ),
+            height: 68,
+            decoration: BoxDecoration(
+              color: AppColors.bottomNavBackground,
+              borderRadius: BorderRadius.circular(34),
+              boxShadow: AppConstants.bottomNavShadow,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _buildNavItem(index: 0, icon: Icons.home_rounded, label: 'Home', isSmallScreen: isSmallScreen),
+                _buildNavItem(index: 1, icon: Icons.search_rounded, label: 'Search', isSmallScreen: isSmallScreen),
+                _buildNavItem(index: 2, icon: Icons.mail_outline_rounded, label: 'Inbox', isSmallScreen: isSmallScreen),
+                _buildNavItem(index: 3, icon: Icons.notifications_none_rounded, label: 'Alerts', isSmallScreen: isSmallScreen),
+                _buildNavItem(index: 4, icon: Icons.person_outline_rounded, label: 'Profile', isSmallScreen: isSmallScreen),
+              ],
+            ),
+          ),
         ),
       ),
     );
@@ -41,23 +59,30 @@ class CustomBottomNavBar extends StatelessWidget {
     required int index,
     required IconData icon,
     required String label,
+    bool isSmallScreen = false,
   }) {
     final bool isSelected = currentIndex == index;
 
-    return InkWell(
-      onTap: () => onTap(index),
-      borderRadius: BorderRadius.circular(20),
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-        decoration: BoxDecoration(
-          color: isSelected ? Colors.white.withValues(alpha: 0.12) : Colors.transparent,
-          borderRadius: BorderRadius.circular(22),
-        ),
-        child: Icon(
-          icon,
-          size: 26,
-          color: isSelected ? Colors.white : const Color(0xFF8E9398),
+    return Tooltip(
+      message: label,
+      child: InkWell(
+        onTap: () => onTap(index),
+        borderRadius: BorderRadius.circular(20),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          padding: EdgeInsets.symmetric(
+            horizontal: isSmallScreen ? 8 : 14,
+            vertical: 10,
+          ),
+          decoration: BoxDecoration(
+            color: isSelected ? Colors.white.withValues(alpha: 0.12) : Colors.transparent,
+            borderRadius: BorderRadius.circular(22),
+          ),
+          child: Icon(
+            icon,
+            size: isSmallScreen ? 24 : 26,
+            color: isSelected ? Colors.white : const Color(0xFF8E9398),
+          ),
         ),
       ),
     );
